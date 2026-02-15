@@ -3,858 +3,1037 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>College Algebra Fundamentals — MAC 1105</title>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>College Algebra Basics — MAC 1105</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #faf8f5;
-      --bg-card: #ffffff;
-      --text: #2c2c2c;
-      --text-muted: #6b6b6b;
-      --accent: #1a7a6d;
-      --accent-light: #e4f4f1;
-      --accent-warm: #8b5e3c;
-      --border: #e2ddd6;
-      --border-light: #f0ece6;
-      --highlight: #fffbe6;
-      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
-      --shadow-hover: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --text: #2d2a24;
+      --text-soft: #706b60;
+      --teal: #1b7a6e;
+      --teal-pale: #e8f5f2;
+      --teal-deep: #0f4f46;
+      --gold: #c9951a;
+      --gold-pale: #fdf8eb;
+      --border: #e4dfd6;
+      --code-bg: #f0ede6;
+      --correct: #2d8044;
+      --correct-bg: #e8f5eb;
+      --wrong: #b5341b;
+      --wrong-bg: #fce8e4;
+      --shadow-sm: 0 1px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 2px 12px rgba(0,0,0,0.07);
+      --radius: 10px;
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
-    .hero { background: linear-gradient(135deg, #0d3d36 0%, #1a7a6d 40%, #2a9a8d 100%); color: white; padding: 4rem 2rem 3.5rem; text-align: center; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
-    .hero h1 { font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 300; letter-spacing: 0.02em; margin-bottom: 0.5rem; position: relative; }
-    .hero .subtitle { font-size: 1.1rem; font-weight: 300; opacity: 0.85; position: relative; max-width: 650px; margin: 0 auto; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-    .intro-note { font-family: 'Crimson Pro', serif; font-size: 1.15rem; line-height: 1.8; color: var(--text-muted); max-width: 800px; margin: 0 auto 3rem; text-align: center; padding: 0 1rem; }
-    .toc { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 3rem; box-shadow: var(--shadow); }
-    .toc h2 { font-family: 'Crimson Pro', serif; font-size: 1.2rem; font-weight: 600; color: var(--accent); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
-    .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.4rem 2rem; }
-    .toc a { color: var(--text); text-decoration: none; font-size: 0.95rem; padding: 0.25rem 0; display: block; border-bottom: 1px solid transparent; transition: all 0.2s; }
-    .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-    .toc a .num { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; margin-right: 0.5rem; }
-    .section { margin-bottom: 3rem; }
-    .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--accent); }
-    .section-number { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: white; background: var(--accent); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .section-header h2 { font-family: 'Crimson Pro', serif; font-size: 1.6rem; font-weight: 600; color: var(--text); }
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
-    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem 1.5rem; box-shadow: var(--shadow); transition: box-shadow 0.2s, transform 0.2s; }
-    .card:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); }
-    .card h3 { font-family: 'Crimson Pro', serif; font-size: 1.1rem; font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
-    .card p, .card li { font-size: 0.93rem; line-height: 1.65; }
-    .card ul { list-style: none; padding: 0; }
-    .card ul li { padding: 0.2rem 0; padding-left: 1rem; position: relative; }
-    .card ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
-    .fact-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 1rem; }
-    .fact-table th { background: var(--accent-light); font-family: 'Crimson Pro', serif; font-weight: 600; font-size: 0.9rem; text-align: left; padding: 0.6rem 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; }
-    .fact-table td { padding: 0.5rem 1rem; font-size: 0.93rem; border-top: 1px solid var(--border-light); }
-    .fact-table tr:hover td { background: #fdfcfa; }
-    .formula { font-family: 'JetBrains Mono', monospace; background: var(--accent-light); padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.88rem; color: var(--accent); white-space: nowrap; }
-    .constant { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--accent-warm); }
-    .mnemonic { background: var(--highlight); border-left: 3px solid #d4a843; padding: 0.6rem 1rem; margin: 0.5rem 0; border-radius: 0 4px 4px 0; font-size: 0.9rem; font-style: italic; }
-    .card-full { grid-column: 1 / -1; }
-    .two-col-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
-    .footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 2rem; }
-    @media (max-width: 700px) { .card-grid { grid-template-columns: 1fr; } .two-col-list { grid-template-columns: 1fr; } .toc-grid { grid-template-columns: 1fr; } .hero { padding: 3rem 1.5rem 2.5rem; } .flashcard-grid { grid-template-columns: 1fr; } }
-    .quiz-question { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem 1.5rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
-    .quiz-question p.q-text { font-family: 'Crimson Pro', serif; font-size: 1.05rem; font-weight: 500; margin-bottom: 0.75rem; color: var(--text); }
-    .quiz-question .q-number { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-    .quiz-options { list-style: none; padding: 0; }
-    .quiz-options li { margin-bottom: 0.35rem; }
-    .quiz-options label { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.5rem 0.75rem; border-radius: 5px; cursor: pointer; font-size: 0.93rem; line-height: 1.5; transition: background 0.15s; border: 1px solid transparent; }
-    .quiz-options label:hover { background: var(--accent-light); }
-    .quiz-options input[type="radio"] { margin-top: 0.25rem; accent-color: var(--accent); flex-shrink: 0; }
-    .quiz-options label.correct { background: #e6f4ea; border-color: #34a853; color: #1a7431; }
-    .quiz-options label.incorrect { background: #fce8e6; border-color: #ea4335; color: #a8281e; }
-    .quiz-options label.reveal-correct { background: #e6f4ea; border-color: #34a853; }
-    .quiz-feedback { margin-top: 0.6rem; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.88rem; line-height: 1.5; display: none; }
-    .quiz-feedback.show { display: block; }
-    .quiz-feedback.correct-fb { background: #e6f4ea; color: #1a7431; border-left: 3px solid #34a853; }
-    .quiz-feedback.incorrect-fb { background: #fce8e6; color: #a8281e; border-left: 3px solid #ea4335; }
-    .quiz-controls { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
-    .quiz-btn { font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; font-weight: 500; padding: 0.6rem 1.5rem; border-radius: 5px; border: none; cursor: pointer; transition: all 0.2s; }
-    .quiz-btn-primary { background: var(--accent); color: white; }
-    .quiz-btn-primary:hover { background: #135e54; }
-    .quiz-btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
-    .quiz-btn-secondary:hover { background: var(--border-light); }
-    .quiz-score { background: var(--accent-light); border: 1px solid var(--accent); border-radius: 6px; padding: 1rem 1.5rem; margin-top: 1rem; display: none; text-align: center; }
-    .quiz-score .score-number { font-family: 'Crimson Pro', serif; font-size: 2.5rem; font-weight: 700; color: var(--accent); }
-    .quiz-score .score-label { font-size: 0.9rem; color: var(--text-muted); }
-    .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
-    .flashcard { perspective: 800px; height: 220px; cursor: pointer; }
-    .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s ease; transform-style: preserve-3d; }
-    .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
-    .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 6px; border: 1px solid var(--border); box-shadow: var(--shadow); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.25rem; text-align: center; }
-    .flashcard-front { background: var(--bg-card); }
-    .flashcard-front .fc-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.75rem; }
-    .flashcard-front .fc-question { font-family: 'Crimson Pro', serif; font-size: 1.1rem; font-weight: 500; color: var(--text); line-height: 1.5; }
-    .flashcard-front .fc-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: auto; padding-top: 0.5rem; }
-    .flashcard-back { background: var(--accent); color: white; transform: rotateY(180deg); }
-    .flashcard-back .fc-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-bottom: 0.75rem; }
-    .flashcard-back .fc-answer { font-size: 1rem; line-height: 1.6; font-weight: 400; }
-    .flashcard:hover .flashcard-inner { box-shadow: var(--shadow-hover); }
-    .fc-category-filter { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
-    .fc-filter-btn { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; padding: 0.35rem 0.9rem; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
-    .fc-filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .fc-filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-    .sa-question { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem 1.5rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
-    .sa-question .q-number { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
-    .sa-question p.q-text { font-family: 'Crimson Pro', serif; font-size: 1.05rem; font-weight: 500; margin-bottom: 0.75rem; color: var(--text); }
-    .sa-textarea { width: 100%; min-height: 70px; padding: 0.6rem 0.75rem; border: 1px solid var(--border); border-radius: 5px; font-family: 'Source Sans 3', sans-serif; font-size: 0.93rem; line-height: 1.5; resize: vertical; transition: border-color 0.2s; background: var(--bg); }
-    .sa-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(26, 122, 109, 0.15); }
-    .sa-submit-btn { margin-top: 0.6rem; font-family: 'Source Sans 3', sans-serif; font-size: 0.88rem; font-weight: 500; padding: 0.45rem 1.2rem; border-radius: 5px; border: 1px solid var(--accent); background: white; color: var(--accent); cursor: pointer; transition: all 0.2s; }
-    .sa-submit-btn:hover { background: var(--accent); color: white; }
-    .sa-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .sa-feedback { margin-top: 0.6rem; padding: 0.6rem 0.75rem; border-radius: 4px; font-size: 0.9rem; line-height: 1.55; display: none; }
-    .sa-feedback.show { display: block; }
-    .sa-feedback.grade-good { background: #e6f4ea; color: #1a7431; border-left: 3px solid #34a853; }
-    .sa-feedback.grade-partial { background: #fef7e0; color: #7a6215; border-left: 3px solid #f9ab00; }
-    .sa-feedback.grade-needs-work { background: #fce8e6; color: #a8281e; border-left: 3px solid #ea4335; }
-    .sa-feedback.grade-error { background: #f5f5f5; color: #666; border-left: 3px solid #999; }
-    .sa-loading { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; color: var(--text-muted); margin-top: 0.5rem; }
-    .sa-loading .spinner { width: 14px; height: 14px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .sa-note { font-size: 0.82rem; color: var(--text-muted); font-style: italic; margin-top: 1.5rem; padding: 0.75rem; background: var(--border-light); border-radius: 4px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--teal-deep);
+      color: white;
+      padding: 3.5rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0; right: 0;
+      height: 40px;
+      background: var(--bg);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+    .header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.4rem;
+    }
+    .header p {
+      font-size: 1.05rem;
+      opacity: 0.8;
+      font-weight: 400;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 4rem;
+    }
+
+    .intro {
+      text-align: center;
+      color: var(--text-soft);
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      margin-bottom: 3rem;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-num {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: white;
+      background: var(--teal);
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-title h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .section-rule {
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+      border: none;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.6rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .card h3 {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--teal-deep);
+      margin-bottom: 0.6rem;
+    }
+    .card p {
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    /* ── EXPLANATION TEXT ── */
+    .explain {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .explain strong {
+      color: var(--teal-deep);
+    }
+
+    /* ── FORMULA / CODE HIGHLIGHT ── */
+    .f {
+      font-family: 'Fira Code', monospace;
+      background: var(--teal-pale);
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: var(--teal-deep);
+      white-space: nowrap;
+    }
+
+    /* ── EXAMPLE BOX ── */
+    .example {
+      background: var(--gold-pale);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.2rem;
+      margin: 0.75rem 0;
+    }
+    .example-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+    .example p {
+      font-size: 0.93rem;
+      margin-bottom: 0.35rem;
+    }
+    .step {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.93rem;
+      margin-bottom: 0.2rem;
+    }
+    .step-num {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── TIP BOX ── */
+    .tip {
+      background: var(--teal-pale);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--teal-deep);
+    }
+
+    /* ── SIMPLE TABLE ── */
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+      margin: 0.5rem 0;
+    }
+    .tbl th {
+      background: var(--teal-pale);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      color: var(--teal-deep);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tbl td {
+      padding: 0.45rem 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── QUIZ ── */
+    .quiz-q {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 0.85rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .quiz-q .q-tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.25rem;
+    }
+    .quiz-q .q-text {
+      font-family: 'Lora', serif;
+      font-size: 1.02rem;
+      font-weight: 600;
+      margin-bottom: 0.65rem;
+    }
+    .quiz-opts { list-style: none; }
+    .quiz-opts li { margin-bottom: 0.3rem; }
+    .quiz-opts label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.93rem;
+      line-height: 1.5;
+      border: 1px solid transparent;
+      transition: background 0.15s;
+    }
+    .quiz-opts label:hover { background: var(--teal-pale); }
+    .quiz-opts input[type="radio"] { margin-top: 3px; accent-color: var(--teal); flex-shrink: 0; }
+    .quiz-opts label.correct { background: var(--correct-bg); border-color: var(--correct); color: #1a5c2e; }
+    .quiz-opts label.wrong { background: var(--wrong-bg); border-color: var(--wrong); color: #8a2a14; }
+    .quiz-opts label.show-correct { background: var(--correct-bg); border-color: var(--correct); }
+
+    .q-feedback {
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      display: none;
+    }
+    .q-feedback.visible { display: block; }
+    .q-feedback.fb-right { background: var(--correct-bg); color: #1a5c2e; border-left: 3px solid var(--correct); }
+    .q-feedback.fb-wrong { background: var(--wrong-bg); color: #8a2a14; border-left: 3px solid var(--wrong); }
+
+    .quiz-bar {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+    }
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      padding: 0.55rem 1.4rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--teal); color: white; }
+    .btn-primary:hover { background: var(--teal-deep); }
+    .btn-outline { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { background: var(--code-bg); }
+
+    .score-box {
+      background: var(--teal-pale);
+      border: 1px solid var(--teal);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      text-align: center;
+      display: none;
+    }
+    .score-big {
+      font-family: 'Lora', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--teal-deep);
+    }
+    .score-msg { font-size: 0.9rem; color: var(--text-soft); }
+
+    /* ── FLASHCARD ── */
+    .fc-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .fc-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fc-tag:hover { border-color: var(--teal); color: var(--teal); }
+    .fc-tag.on { background: var(--teal); color: white; border-color: var(--teal); }
+
+    .fc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.85rem;
+    }
+    .fc {
+      perspective: 700px;
+      height: 200px;
+      cursor: pointer;
+    }
+    .fc-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transition: transform 0.45s ease;
+      transform-style: preserve-3d;
+    }
+    .fc.flipped .fc-inner { transform: rotateY(180deg); }
+    .fc-front, .fc-back {
+      position: absolute;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .fc-front { background: var(--surface); }
+    .fc-front .fc-cat {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 0.6rem;
+    }
+    .fc-front .fc-q {
+      font-family: 'Lora', serif;
+      font-size: 1.02rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .fc-front .fc-tap {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      margin-top: auto;
+      padding-top: 0.4rem;
+    }
+    .fc-back {
+      background: var(--teal);
+      color: white;
+      transform: rotateY(180deg);
+    }
+    .fc-back .fc-cat {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.65;
+      margin-bottom: 0.6rem;
+    }
+    .fc-back .fc-a {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-soft);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 1rem 1rem 3rem; }
+      .fc-grid { grid-template-columns: 1fr; }
+      .header { padding: 2.5rem 1.25rem 2rem; }
+    }
   </style>
 </head>
 <body>
 
-<div class="hero">
-  <h1>College Algebra Fundamentals</h1>
-  <p class="subtitle">Equations, functions, and their graphs. Quadratic, exponential, and logarithmic functions. The core facts and formulas you need to know.</p>
+<div class="header">
+  <h1>College Algebra Basics</h1>
+  <p>The essential ideas, step by step, with worked examples.</p>
 </div>
 
-<div class="container">
+<div class="wrap">
 
-  <p class="intro-note">
-    This is the essential reference for College Algebra (MAC 1105). Every key definition, formula, graph behavior, and problem-solving technique you need to have down cold for solving equations, working with functions, and mastering exponentials and logarithms.
+  <p class="intro">
+    This guide covers the foundations of MAC 1105 in plain language. Each topic is explained, then shown with a worked example, so you can see exactly how it works before you practice.
   </p>
 
-  <!-- TABLE OF CONTENTS -->
-  <div class="toc">
-    <h2>Contents</h2>
-    <div class="toc-grid">
-      <a href="#s1"><span class="num">01</span> Real Numbers &amp; Expressions</a>
-      <a href="#s2"><span class="num">02</span> Solving Equations</a>
-      <a href="#s3"><span class="num">03</span> Inequalities</a>
-      <a href="#s4"><span class="num">04</span> Functions: Definitions &amp; Properties</a>
-      <a href="#s5"><span class="num">05</span> Graphs &amp; Transformations</a>
-      <a href="#s6"><span class="num">06</span> Operations on Functions</a>
-      <a href="#s7"><span class="num">07</span> Quadratic Functions</a>
-      <a href="#s8"><span class="num">08</span> Polynomial Functions</a>
-      <a href="#s9"><span class="num">09</span> Rational Functions</a>
-      <a href="#s10"><span class="num">10</span> Exponential Functions</a>
-      <a href="#s11"><span class="num">11</span> Logarithmic Functions</a>
-      <a href="#s12"><span class="num">12</span> Key Formulas &amp; Quick Reference</a>
-      <a href="#s13"><span class="num">13</span> Self-Test Quiz</a>
-      <a href="#s14"><span class="num">14</span> Flashcards</a>
-      <a href="#s15"><span class="num">15</span> Short Answer Practice</a>
-    </div>
-  </div>
-
-  <!-- SECTION 1 -->
+  <!-- ═══════ 1. EXPONENTS ═══════ -->
   <div class="section" id="s1">
-    <div class="section-header"><span class="section-number">1</span><h2>Real Numbers &amp; Expressions</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>The Real Number System</h3>
-        <ul>
-          <li><strong>Natural numbers</strong>: 1, 2, 3, ... (counting numbers)</li>
-          <li><strong>Whole numbers</strong>: 0, 1, 2, 3, ...</li>
-          <li><strong>Integers</strong>: ..., -2, -1, 0, 1, 2, ...</li>
-          <li><strong>Rational numbers</strong>: any number that can be written as a fraction p/q where q &ne; 0 (includes terminating and repeating decimals)</li>
-          <li><strong>Irrational numbers</strong>: cannot be written as a fraction (non-terminating, non-repeating decimals). Examples: &radic;2, &pi;, e</li>
-          <li><strong>Real numbers</strong>: all rational and irrational numbers together</li>
-        </ul>
+    <div class="section-title"><span class="section-num">1</span><h2>Exponent Rules</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>What Are Exponents?</h3>
+      <p class="explain">An exponent tells you how many times to multiply a base by itself. In <span class="f">x<sup>3</sup></span>, the base is x and the exponent is 3, so <span class="f">x<sup>3</sup> = x &middot; x &middot; x</span>.</p>
+    </div>
+
+    <div class="card">
+      <h3>The Core Rules</h3>
+      <p class="explain">There are a handful of rules that let you simplify expressions with exponents without expanding everything out. Here are the ones you need:</p>
+      <table class="tbl">
+        <tr><th>Rule</th><th>What It Says</th><th>Why It Works</th></tr>
+        <tr><td>Product rule</td><td><span class="f">x<sup>m</sup> &middot; x<sup>n</sup> = x<sup>m+n</sup></span></td><td>You're just combining all the x's being multiplied</td></tr>
+        <tr><td>Quotient rule</td><td><span class="f">x<sup>m</sup> / x<sup>n</sup> = x<sup>m-n</sup></span></td><td>Cancel the x's that appear in both top and bottom</td></tr>
+        <tr><td>Power rule</td><td><span class="f">(x<sup>m</sup>)<sup>n</sup> = x<sup>mn</sup></span></td><td>You're raising a power to a power, so multiply them</td></tr>
+        <tr><td>Zero exponent</td><td><span class="f">x<sup>0</sup> = 1</span></td><td>Follows from the quotient rule: x<sup>n</sup>/x<sup>n</sup> = x<sup>0</sup> = 1</td></tr>
+        <tr><td>Negative exponent</td><td><span class="f">x<sup>-n</sup> = 1/x<sup>n</sup></span></td><td>A negative exponent means "take the reciprocal"</td></tr>
+      </table>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Simplify: <span class="f">x<sup>4</sup> &middot; x<sup>3</sup></span></p>
+        <div class="step"><span class="step-num">1.</span><span>Same base (x), so add the exponents: 4 + 3 = 7</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Answer: <span class="f">x<sup>7</sup></span></span></div>
       </div>
-      <div class="card">
-        <h3>Exponent Rules</h3>
-        <table class="fact-table">
-          <tr><th>Rule</th><th>Formula</th></tr>
-          <tr><td>Product rule</td><td><span class="formula">a<sup>m</sup> &middot; a<sup>n</sup> = a<sup>m+n</sup></span></td></tr>
-          <tr><td>Quotient rule</td><td><span class="formula">a<sup>m</sup> / a<sup>n</sup> = a<sup>m-n</sup></span></td></tr>
-          <tr><td>Power rule</td><td><span class="formula">(a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup></span></td></tr>
-          <tr><td>Zero exponent</td><td><span class="formula">a<sup>0</sup> = 1</span> (a &ne; 0)</td></tr>
-          <tr><td>Negative exponent</td><td><span class="formula">a<sup>-n</sup> = 1/a<sup>n</sup></span></td></tr>
-          <tr><td>Product to power</td><td><span class="formula">(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup></span></td></tr>
-          <tr><td>Quotient to power</td><td><span class="formula">(a/b)<sup>n</sup> = a<sup>n</sup>/b<sup>n</sup></span></td></tr>
-        </table>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Simplify: <span class="f">(x<sup>2</sup>)<sup>5</sup></span></p>
+        <div class="step"><span class="step-num">1.</span><span>Power to a power, so multiply: 2 &times; 5 = 10</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Answer: <span class="f">x<sup>10</sup></span></span></div>
       </div>
-      <div class="card">
-        <h3>Radicals &amp; Rational Exponents</h3>
-        <ul>
-          <li><span class="formula">a<sup>1/n</sup> = &radic;<span style="text-decoration:overline">a</span></span> (the nth root of a)</li>
-          <li><span class="formula">a<sup>m/n</sup> = (&radic;<span style="text-decoration:overline">a</span>)<sup>m</sup> = &radic;<span style="text-decoration:overline">a<sup>m</sup></span></span></li>
-          <li>To simplify radicals: factor out perfect squares (or cubes, etc.)</li>
-          <li>Rationalizing the denominator: multiply by a form of 1 to eliminate radicals from the denominator</li>
-          <li>You cannot take the even root of a negative number in the real number system</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Factoring Essentials</h3>
-        <ul>
-          <li><strong>GCF first</strong>: always factor out the greatest common factor first</li>
-          <li><strong>Difference of squares</strong>: <span class="formula">a&sup2; - b&sup2; = (a+b)(a-b)</span></li>
-          <li><strong>Perfect square trinomials</strong>: <span class="formula">a&sup2; + 2ab + b&sup2; = (a+b)&sup2;</span></li>
-          <li><strong>Sum/difference of cubes</strong>: <span class="formula">a&sup3; + b&sup3; = (a+b)(a&sup2; - ab + b&sup2;)</span> and <span class="formula">a&sup3; - b&sup3; = (a-b)(a&sup2; + ab + b&sup2;)</span></li>
-          <li><strong>Trinomial (ac method)</strong>: for ax&sup2; + bx + c, find two numbers that multiply to ac and add to b</li>
-        </ul>
-        <div class="mnemonic">"SOAP" for sum/difference of cubes: Same sign, Opposite sign, Always Positive.</div>
-      </div>
+
+      <div class="tip">Any nonzero number raised to the 0 power is 1. So 5<sup>0</sup> = 1, (-3)<sup>0</sup> = 1, and (1000)<sup>0</sup> = 1.</div>
     </div>
   </div>
 
-  <!-- SECTION 2 -->
+  <!-- ═══════ 2. FACTORING ═══════ -->
   <div class="section" id="s2">
-    <div class="section-header"><span class="section-number">2</span><h2>Solving Equations</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Linear Equations</h3>
-        <ul>
-          <li>Form: <span class="formula">ax + b = c</span></li>
-          <li>Solve by isolating the variable: use inverse operations</li>
-          <li>One solution, no solution (contradiction), or infinitely many solutions (identity)</li>
-          <li>Clear fractions by multiplying all terms by the LCD</li>
-        </ul>
+    <div class="section-title"><span class="section-num">2</span><h2>Factoring</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>What Is Factoring?</h3>
+      <p class="explain">Factoring means rewriting an expression as a product of simpler pieces. It's like "un-distributing." If you know that 3 &times; 5 = 15, then factoring 15 gives you 3 &times; 5. In algebra we do the same thing with expressions involving x.</p>
+      <p class="explain"><strong>Always start by pulling out the GCF</strong> (greatest common factor) before trying anything else.</p>
+    </div>
+
+    <div class="card">
+      <h3>Difference of Squares</h3>
+      <p class="explain">This is the pattern you'll see most often. If you have something squared minus something else squared, it factors neatly:</p>
+      <p class="explain" style="text-align:center;font-size:1.05rem;margin:0.5rem 0"><span class="f">a<sup>2</sup> - b<sup>2</sup> = (a + b)(a - b)</span></p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Factor: <span class="f">x<sup>2</sup> - 25</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Recognize the pattern: x<sup>2</sup> is a perfect square, and 25 = 5<sup>2</sup>.</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Apply the formula with a = x and b = 5.</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Answer: <span class="f">(x + 5)(x - 5)</span></span></div>
       </div>
-      <div class="card">
-        <h3>Quadratic Equations</h3>
-        <p>Standard form: <span class="formula">ax&sup2; + bx + c = 0</span></p>
-        <ul>
-          <li><strong>Factoring</strong>: set each factor equal to zero</li>
-          <li><strong>Square root method</strong>: if ax&sup2; + c = 0 or (x + k)&sup2; = d</li>
-          <li><strong>Completing the square</strong>: rewrite in the form (x + h)&sup2; = k</li>
-          <li><strong>Quadratic formula</strong>: <span class="formula">x = (-b &plusmn; &radic;(b&sup2; - 4ac)) / 2a</span></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>The Discriminant</h3>
-        <p><span class="formula">&Delta; = b&sup2; - 4ac</span></p>
-        <table class="fact-table">
-          <tr><th>Discriminant Value</th><th>Number &amp; Type of Solutions</th></tr>
-          <tr><td>&Delta; &gt; 0 (perfect square)</td><td>Two distinct real, rational solutions</td></tr>
-          <tr><td>&Delta; &gt; 0 (not perfect square)</td><td>Two distinct real, irrational solutions</td></tr>
-          <tr><td>&Delta; = 0</td><td>One repeated real solution (double root)</td></tr>
-          <tr><td>&Delta; &lt; 0</td><td>No real solutions (two complex conjugates)</td></tr>
-        </table>
-      </div>
-      <div class="card">
-        <h3>Other Equation Types</h3>
-        <ul>
-          <li><strong>Absolute value</strong>: |ax + b| = c means ax + b = c OR ax + b = -c (c must be &ge; 0)</li>
-          <li><strong>Radical equations</strong>: isolate the radical, raise both sides to the appropriate power, <strong>always check for extraneous solutions</strong></li>
-          <li><strong>Rational equations</strong>: multiply by the LCD, solve, <strong>check that solutions don't make any denominator zero</strong></li>
-          <li><strong>Equations in quadratic form</strong>: substitute u for a repeated expression (e.g., x&sup4; - 5x&sup2; + 4 = 0: let u = x&sup2;)</li>
-        </ul>
+
+      <div class="tip">This only works for subtraction. There is no "sum of squares" factoring formula for real numbers. x<sup>2</sup> + 25 does not factor.</div>
+    </div>
+
+    <div class="card">
+      <h3>Factoring Trinomials (ax<sup>2</sup> + bx + c)</h3>
+      <p class="explain">When a = 1 (like x<sup>2</sup> + 7x + 12), you need two numbers that <strong>multiply to c</strong> and <strong>add to b</strong>.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Factor: <span class="f">x<sup>2</sup> + 7x + 12</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Need two numbers that multiply to 12 and add to 7.</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Try factor pairs of 12: (1,12), (2,6), (3,4).</span></div>
+        <div class="step"><span class="step-num">3.</span><span>3 + 4 = 7. That's the one.</span></div>
+        <div class="step"><span class="step-num">4.</span><span>Answer: <span class="f">(x + 3)(x + 4)</span></span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 3 -->
+  <!-- ═══════ 3. SOLVING EQUATIONS ═══════ -->
   <div class="section" id="s3">
-    <div class="section-header"><span class="section-number">3</span><h2>Inequalities</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Linear Inequalities</h3>
-        <ul>
-          <li>Solve like a linear equation, but <strong>flip the inequality sign when multiplying or dividing by a negative number</strong></li>
-          <li>Express solutions using interval notation or a number line</li>
-          <li><strong>Compound inequalities</strong>: "and" = intersection (&cap;), "or" = union (&cup;)</li>
-        </ul>
+    <div class="section-title"><span class="section-num">3</span><h2>Solving Equations</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>Linear Equations</h3>
+      <p class="explain">A linear equation has x to the first power (no x<sup>2</sup> or higher). The goal is to get x by itself on one side. You do this by "undoing" what's been done to x using inverse operations: undo addition with subtraction, undo multiplication with division.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Solve: <span class="f">3x + 7 = 22</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Subtract 7 from both sides: 3x = 15</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Divide both sides by 3: x = 5</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Check: 3(5) + 7 = 15 + 7 = 22 ✓</span></div>
       </div>
-      <div class="card">
-        <h3>Interval Notation</h3>
-        <table class="fact-table">
-          <tr><th>Inequality</th><th>Interval</th><th>Boundary</th></tr>
-          <tr><td>a &lt; x &lt; b</td><td>(a, b)</td><td>Open (excluded)</td></tr>
-          <tr><td>a &le; x &le; b</td><td>[a, b]</td><td>Closed (included)</td></tr>
-          <tr><td>x &gt; a</td><td>(a, &infin;)</td><td>Always open at &infin;</td></tr>
-          <tr><td>x &le; b</td><td>(-&infin;, b]</td><td>Always open at -&infin;</td></tr>
-        </table>
-        <div class="mnemonic">Parentheses = open circle on number line (not included). Brackets = closed circle (included). Infinity always gets a parenthesis.</div>
+    </div>
+
+    <div class="card">
+      <h3>Quadratic Equations</h3>
+      <p class="explain">A quadratic has x<sup>2</sup> as its highest power. Standard form is <span class="f">ax<sup>2</sup> + bx + c = 0</span>. There are several ways to solve these:</p>
+      <p class="explain"><strong>Method 1: Factoring.</strong> If the expression factors, set each factor equal to zero.</p>
+      <p class="explain"><strong>Method 2: Quadratic formula.</strong> This always works:</p>
+      <p class="explain" style="text-align:center;font-size:1.05rem;margin:0.5rem 0"><span class="f">x = (-b ± √(b<sup>2</sup> - 4ac)) / 2a</span></p>
+
+      <div class="example">
+        <div class="example-label">Worked Example — Factoring</div>
+        <p>Solve: <span class="f">x<sup>2</sup> - 5x + 6 = 0</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Find two numbers that multiply to 6 and add to -5. That's -2 and -3.</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Factor: (x - 2)(x - 3) = 0</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Set each factor to 0: x - 2 = 0 gives x = 2. x - 3 = 0 gives x = 3.</span></div>
+        <div class="step"><span class="step-num">4.</span><span>Solutions: <strong>x = 2 and x = 3</strong></span></div>
       </div>
-      <div class="card">
-        <h3>Absolute Value Inequalities</h3>
-        <ul>
-          <li><span class="formula">|x| &lt; a</span> means <span class="formula">-a &lt; x &lt; a</span> (AND/between: the solution is an interval)</li>
-          <li><span class="formula">|x| &gt; a</span> means <span class="formula">x &lt; -a OR x &gt; a</span> (OR/outside: the solution is two rays)</li>
-          <li>"Less than" = "and" (compound). "Greater than" = "or" (two pieces).</li>
-        </ul>
-        <div class="mnemonic">"Less thAND" and "GreatOR"</div>
+
+      <div class="example">
+        <div class="example-label">Worked Example — Quadratic Formula</div>
+        <p>Solve: <span class="f">2x<sup>2</sup> + 3x - 5 = 0</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Identify a = 2, b = 3, c = -5.</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Discriminant: b<sup>2</sup> - 4ac = 9 - 4(2)(-5) = 9 + 40 = 49.</span></div>
+        <div class="step"><span class="step-num">3.</span><span>√49 = 7, so x = (-3 ± 7) / (2 &middot; 2) = (-3 ± 7) / 4.</span></div>
+        <div class="step"><span class="step-num">4.</span><span>x = (-3 + 7)/4 = 4/4 = 1, or x = (-3 - 7)/4 = -10/4 = -5/2.</span></div>
+        <div class="step"><span class="step-num">5.</span><span>Solutions: <strong>x = 1 and x = -5/2</strong></span></div>
       </div>
-      <div class="card">
-        <h3>Polynomial &amp; Rational Inequalities</h3>
-        <ul>
-          <li>Get zero on one side, factor completely</li>
-          <li>Find critical values (zeros and undefined points)</li>
-          <li>Use a <strong>sign chart</strong> (test intervals) or number line to determine where the expression is positive or negative</li>
-          <li>For rational inequalities: <strong>never multiply both sides by an expression containing the variable</strong> (sign is unknown)</li>
-          <li>Write the answer in interval notation</li>
-        </ul>
+    </div>
+
+    <div class="card">
+      <h3>The Discriminant: How Many Solutions?</h3>
+      <p class="explain">The expression under the square root in the quadratic formula, <span class="f">b<sup>2</sup> - 4ac</span>, is called the <strong>discriminant</strong>. It tells you what kind of solutions you'll get before you even solve:</p>
+      <table class="tbl">
+        <tr><th>If b<sup>2</sup> - 4ac is...</th><th>Then you get...</th></tr>
+        <tr><td>Positive</td><td>Two different real solutions</td></tr>
+        <tr><td>Zero</td><td>Exactly one real solution (a "double root")</td></tr>
+        <tr><td>Negative</td><td>No real solutions</td></tr>
+      </table>
+      <div class="tip">A negative discriminant means you'd be taking the square root of a negative number, which has no answer in the real number system.</div>
+    </div>
+
+    <div class="card">
+      <h3>Absolute Value Equations</h3>
+      <p class="explain">The absolute value of a number is its distance from zero, so it's always positive or zero. To solve <span class="f">|expression| = k</span>, you write <strong>two equations</strong>: expression = k, and expression = -k.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Solve: <span class="f">|x - 3| = 7</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Write two equations: x - 3 = 7 and x - 3 = -7</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Solve: x = 10 and x = -4</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Check: |10 - 3| = |7| = 7 ✓ and |-4 - 3| = |-7| = 7 ✓</span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 4 -->
+  <!-- ═══════ 4. INEQUALITIES ═══════ -->
   <div class="section" id="s4">
-    <div class="section-header"><span class="section-number">4</span><h2>Functions: Definitions &amp; Properties</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>What Is a Function?</h3>
-        <ul>
-          <li>A <strong>relation</strong> where each input (x) maps to exactly <strong>one</strong> output (y)</li>
-          <li><strong>Vertical Line Test</strong>: a graph is a function if no vertical line crosses it more than once</li>
-          <li>Notation: f(x) means "the output of function f at input x"</li>
-          <li>f(x) is NOT f times x. It is function notation.</li>
-        </ul>
+    <div class="section-title"><span class="section-num">4</span><h2>Inequalities</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>The One Big Rule</h3>
+      <p class="explain">You solve inequalities almost exactly like equations, with one critical exception: <strong>when you multiply or divide both sides by a negative number, you must flip the inequality sign</strong>.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Solve: <span class="f">-2x + 5 > 11</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Subtract 5 from both sides: -2x > 6</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Divide by -2 <strong>and flip the sign</strong>: x < -3</span></div>
+        <div class="step"><span class="step-num">3.</span><span>In interval notation: (-∞, -3)</span></div>
       </div>
-      <div class="card">
-        <h3>Domain &amp; Range</h3>
-        <ul>
-          <li><strong>Domain</strong>: all possible input (x) values</li>
-          <li><strong>Range</strong>: all possible output (y) values</li>
-          <li>Common domain restrictions: cannot divide by zero, cannot take even root of a negative, cannot take log of zero or negative</li>
-          <li>For <span class="formula">f(x) = 1/(x-3)</span>, domain is all real numbers except x = 3</li>
-          <li>For <span class="formula">f(x) = &radic;(x-2)</span>, domain is x &ge; 2, or [2, &infin;)</li>
-        </ul>
+    </div>
+
+    <div class="card">
+      <h3>Interval Notation</h3>
+      <p class="explain">Interval notation is a compact way to write the solution set. Parentheses mean "not included" (open circle), brackets mean "included" (closed circle). Infinity always gets a parenthesis because you can never reach it.</p>
+      <table class="tbl">
+        <tr><th>Meaning</th><th>Notation</th></tr>
+        <tr><td>x is between 2 and 7, not including endpoints</td><td>(2, 7)</td></tr>
+        <tr><td>x is between 2 and 7, including both</td><td>[2, 7]</td></tr>
+        <tr><td>x is greater than 5</td><td>(5, ∞)</td></tr>
+        <tr><td>x is less than or equal to 3</td><td>(-∞, 3]</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Absolute Value Inequalities</h3>
+      <p class="explain">These follow a simple pattern. Think of absolute value as distance from zero:</p>
+      <p class="explain"><span class="f">|x| < a</span> means x is <strong>between</strong> -a and a: <span class="f">-a < x < a</span></p>
+      <p class="explain"><span class="f">|x| > a</span> means x is <strong>outside</strong> that range: <span class="f">x < -a or x > a</span></p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Solve: <span class="f">|2x + 1| < 5</span></p>
+        <div class="step"><span class="step-num">1.</span><span>"Less than" means between: -5 < 2x + 1 < 5</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Subtract 1 from all three parts: -6 < 2x < 4</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Divide all parts by 2: -3 < x < 2</span></div>
+        <div class="step"><span class="step-num">4.</span><span>In interval notation: (-3, 2)</span></div>
       </div>
-      <div class="card">
-        <h3>Evaluating &amp; Interpreting Functions</h3>
-        <ul>
-          <li>To evaluate f(a): substitute a for every x in the expression</li>
-          <li><strong>Difference quotient</strong>: <span class="formula">[f(x+h) - f(x)] / h</span>. This measures the average rate of change and is the foundation of calculus.</li>
-          <li>Finding where f(x) = 0 means finding the <strong>x-intercepts</strong> (zeros/roots)</li>
-          <li>Finding f(0) gives the <strong>y-intercept</strong></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Increasing, Decreasing, Constant</h3>
-        <ul>
-          <li>A function is <strong>increasing</strong> on an interval if f(x) goes up as x moves right</li>
-          <li>A function is <strong>decreasing</strong> on an interval if f(x) goes down as x moves right</li>
-          <li>A function is <strong>constant</strong> on an interval if f(x) stays the same</li>
-          <li>State increasing/decreasing intervals using <strong>x-values</strong> (not y-values), with open parentheses at turning points</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Even &amp; Odd Functions</h3>
-        <ul>
-          <li><strong>Even function</strong>: f(-x) = f(x) for all x. Graph is symmetric about the <strong>y-axis</strong>. Examples: x&sup2;, |x|, cos(x).</li>
-          <li><strong>Odd function</strong>: f(-x) = -f(x) for all x. Graph is symmetric about the <strong>origin</strong>. Examples: x&sup3;, x, sin(x).</li>
-          <li>Most functions are neither even nor odd.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Piecewise Functions</h3>
-        <ul>
-          <li>Defined by different rules on different intervals of the domain</li>
-          <li>Evaluate by first checking which interval x falls in, then using the corresponding rule</li>
-          <li>Watch for open vs. closed circles at boundary points when graphing</li>
-          <li>Common example: absolute value as a piecewise function: |x| = x if x &ge; 0, and -x if x &lt; 0</li>
-        </ul>
-      </div>
+
+      <div class="tip">Memory trick: "Less thAND" (the solution is one interval joined by AND). "GreatOR" (two separate pieces joined by OR).</div>
     </div>
   </div>
 
-  <!-- SECTION 5 -->
+  <!-- ═══════ 5. FUNCTIONS ═══════ -->
   <div class="section" id="s5">
-    <div class="section-header"><span class="section-number">5</span><h2>Graphs &amp; Transformations</h2></div>
-    <div class="card-grid">
-      <div class="card card-full">
-        <h3>Parent Functions to Know</h3>
-        <table class="fact-table">
-          <tr><th>Name</th><th>Equation</th><th>Key Features</th></tr>
-          <tr><td>Linear</td><td><span class="formula">f(x) = x</span></td><td>Straight line through origin, slope 1</td></tr>
-          <tr><td>Quadratic</td><td><span class="formula">f(x) = x&sup2;</span></td><td>U-shaped parabola, vertex at origin, opens up</td></tr>
-          <tr><td>Cubic</td><td><span class="formula">f(x) = x&sup3;</span></td><td>S-shaped curve through origin</td></tr>
-          <tr><td>Square root</td><td><span class="formula">f(x) = &radic;x</span></td><td>Starts at origin, increases slowly, domain [0, &infin;)</td></tr>
-          <tr><td>Absolute value</td><td><span class="formula">f(x) = |x|</span></td><td>V-shape, vertex at origin</td></tr>
-          <tr><td>Reciprocal</td><td><span class="formula">f(x) = 1/x</span></td><td>Hyperbola, asymptotes at x=0 and y=0</td></tr>
-          <tr><td>Exponential</td><td><span class="formula">f(x) = b<sup>x</sup></span></td><td>Passes through (0,1), horizontal asymptote y=0</td></tr>
-          <tr><td>Logarithmic</td><td><span class="formula">f(x) = log<sub>b</sub>(x)</span></td><td>Passes through (1,0), vertical asymptote x=0</td></tr>
-        </table>
+    <div class="section-title"><span class="section-num">5</span><h2>Functions</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>What Is a Function?</h3>
+      <p class="explain">A function is a rule that takes each input (x) and produces exactly <strong>one</strong> output (y). Think of it as a machine: you put in a number, and one number comes out. If an input could give two different outputs, it's not a function.</p>
+      <p class="explain"><strong>Vertical Line Test:</strong> If you can draw a vertical line anywhere on a graph and it hits the curve more than once, the graph is not a function.</p>
+      <p class="explain"><strong>Notation:</strong> f(x) means "the output of function f when the input is x." It is NOT f times x.</p>
+    </div>
+
+    <div class="card">
+      <h3>Evaluating a Function</h3>
+      <p class="explain">To evaluate f(a), replace every x in the formula with a.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>If <span class="f">f(x) = 2x<sup>2</sup> - 3x + 1</span>, find f(4).</p>
+        <div class="step"><span class="step-num">1.</span><span>Replace every x with 4: f(4) = 2(4)<sup>2</sup> - 3(4) + 1</span></div>
+        <div class="step"><span class="step-num">2.</span><span>= 2(16) - 12 + 1</span></div>
+        <div class="step"><span class="step-num">3.</span><span>= 32 - 12 + 1 = <strong>21</strong></span></div>
       </div>
-      <div class="card">
-        <h3>Transformation Rules</h3>
-        <p>Starting from y = f(x):</p>
-        <ul>
-          <li><span class="formula">f(x) + k</span>: shift <strong>up</strong> k units</li>
-          <li><span class="formula">f(x) - k</span>: shift <strong>down</strong> k units</li>
-          <li><span class="formula">f(x - h)</span>: shift <strong>right</strong> h units</li>
-          <li><span class="formula">f(x + h)</span>: shift <strong>left</strong> h units</li>
-          <li><span class="formula">-f(x)</span>: reflect over the <strong>x-axis</strong></li>
-          <li><span class="formula">f(-x)</span>: reflect over the <strong>y-axis</strong></li>
-          <li><span class="formula">a&middot;f(x)</span>: vertical stretch (a &gt; 1) or compress (0 &lt; a &lt; 1)</li>
-          <li><span class="formula">f(bx)</span>: horizontal compress (b &gt; 1) or stretch (0 &lt; b &lt; 1)</li>
-        </ul>
-        <div class="mnemonic">Horizontal shifts are counterintuitive: f(x - 3) shifts RIGHT 3. Think "opposite of the sign inside."</div>
+    </div>
+
+    <div class="card">
+      <h3>Domain: What Can You Plug In?</h3>
+      <p class="explain">The <strong>domain</strong> is the set of all x-values you're allowed to use. Most of the time, the domain is all real numbers. But there are three situations that create restrictions:</p>
+      <p class="explain"><strong>1. Fractions:</strong> The denominator cannot be zero. Find what makes it zero and exclude that.</p>
+      <p class="explain"><strong>2. Square roots (even roots):</strong> The expression under the root must be ≥ 0.</p>
+      <p class="explain"><strong>3. Logarithms:</strong> The argument must be > 0.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Find the domain of <span class="f">f(x) = √(x - 3)</span></p>
+        <div class="step"><span class="step-num">1.</span><span>The expression under the root must be ≥ 0: x - 3 ≥ 0</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Solve: x ≥ 3</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Domain in interval notation: <strong>[3, ∞)</strong></span></div>
       </div>
-      <div class="card">
-        <h3>Order of Transformations</h3>
-        <ul>
-          <li>Apply transformations in this order: <strong>horizontal shifts and stretches first</strong> (inside the function), then <strong>vertical stretches and reflections</strong>, then <strong>vertical shifts</strong> (outside the function)</li>
-          <li>When reading <span class="formula">y = a&middot;f(b(x - h)) + k</span>, the vertex/anchor point moves to (h, k), and a and b control stretch/compression</li>
-        </ul>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Find the domain of <span class="f">g(x) = 1/(x<sup>2</sup> - 9)</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Set the denominator ≠ 0: x<sup>2</sup> - 9 ≠ 0</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Factor: (x + 3)(x - 3) ≠ 0, so x ≠ 3 and x ≠ -3</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Domain: <strong>all real numbers except x = 3 and x = -3</strong></span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 6 -->
+  <!-- ═══════ 6. TRANSFORMATIONS ═══════ -->
   <div class="section" id="s6">
-    <div class="section-header"><span class="section-number">6</span><h2>Operations on Functions</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Arithmetic Combinations</h3>
-        <ul>
-          <li><span class="formula">(f + g)(x) = f(x) + g(x)</span></li>
-          <li><span class="formula">(f - g)(x) = f(x) - g(x)</span></li>
-          <li><span class="formula">(f &middot; g)(x) = f(x) &middot; g(x)</span></li>
-          <li><span class="formula">(f / g)(x) = f(x) / g(x)</span>, where g(x) &ne; 0</li>
-          <li>The domain of the combined function is the <strong>intersection</strong> of the domains (with additional restrictions for division)</li>
-        </ul>
+    <div class="section-title"><span class="section-num">6</span><h2>Graph Transformations</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>How Graphs Move</h3>
+      <p class="explain">Once you know the shape of a basic graph (like x<sup>2</sup> or √x), you can shift, stretch, or flip it using simple rules. Starting from a graph y = f(x):</p>
+      <table class="tbl">
+        <tr><th>Change</th><th>Effect on the Graph</th></tr>
+        <tr><td><span class="f">f(x) + k</span></td><td>Shift <strong>up</strong> k units</td></tr>
+        <tr><td><span class="f">f(x) - k</span></td><td>Shift <strong>down</strong> k units</td></tr>
+        <tr><td><span class="f">f(x - h)</span></td><td>Shift <strong>right</strong> h units</td></tr>
+        <tr><td><span class="f">f(x + h)</span></td><td>Shift <strong>left</strong> h units</td></tr>
+        <tr><td><span class="f">-f(x)</span></td><td>Flip over the <strong>x-axis</strong></td></tr>
+        <tr><td><span class="f">f(-x)</span></td><td>Flip over the <strong>y-axis</strong></td></tr>
+      </table>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Describe the graph of <span class="f">y = (x - 2)<sup>2</sup> + 5</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Start with the parent function y = x<sup>2</sup> (a U-shaped parabola at the origin).</span></div>
+        <div class="step"><span class="step-num">2.</span><span>(x - 2) means shift <strong>right 2</strong> (opposite the sign inside).</span></div>
+        <div class="step"><span class="step-num">3.</span><span>+ 5 on the outside means shift <strong>up 5</strong>.</span></div>
+        <div class="step"><span class="step-num">4.</span><span>Result: a parabola with its <strong>vertex at (2, 5)</strong>.</span></div>
       </div>
-      <div class="card">
-        <h3>Composition of Functions</h3>
-        <ul>
-          <li><span class="formula">(f &compfn; g)(x) = f(g(x))</span>: "f of g of x"</li>
-          <li>First evaluate the inner function g(x), then plug the result into f</li>
-          <li>Order matters: <span class="formula">f(g(x)) &ne; g(f(x))</span> in general</li>
-          <li>Domain of f(g(x)): all x in the domain of g such that g(x) is in the domain of f</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Inverse Functions</h3>
-        <ul>
-          <li>f and f<sup>-1</sup> "undo" each other: <span class="formula">f(f<sup>-1</sup>(x)) = x</span> and <span class="formula">f<sup>-1</sup>(f(x)) = x</span></li>
-          <li>f<sup>-1</sup> is NOT 1/f(x). It is the inverse function.</li>
-          <li>A function has an inverse only if it is <strong>one-to-one</strong> (passes the <strong>Horizontal Line Test</strong>)</li>
-          <li>To find f<sup>-1</sup>: replace f(x) with y, swap x and y, solve for y</li>
-          <li>Domain of f = range of f<sup>-1</sup>, and range of f = domain of f<sup>-1</sup></li>
-          <li>Graphs of f and f<sup>-1</sup> are reflections across the line <span class="formula">y = x</span></li>
-        </ul>
-      </div>
+
+      <div class="tip">Horizontal shifts feel backwards: f(x - 3) shifts RIGHT 3, and f(x + 3) shifts LEFT 3. Think "opposite of the sign inside."</div>
     </div>
   </div>
 
-  <!-- SECTION 7 -->
+  <!-- ═══════ 7. INVERSE FUNCTIONS ═══════ -->
   <div class="section" id="s7">
-    <div class="section-header"><span class="section-number">7</span><h2>Quadratic Functions</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Standard Form vs. Vertex Form</h3>
-        <ul>
-          <li><strong>Standard form</strong>: <span class="formula">f(x) = ax&sup2; + bx + c</span></li>
-          <li><strong>Vertex form</strong>: <span class="formula">f(x) = a(x - h)&sup2; + k</span> where (h, k) is the vertex</li>
-          <li>Convert standard to vertex by <strong>completing the square</strong> or using <span class="formula">h = -b/(2a)</span> and <span class="formula">k = f(h)</span></li>
-          <li>a &gt; 0: parabola opens <strong>up</strong> (vertex is a minimum)</li>
-          <li>a &lt; 0: parabola opens <strong>down</strong> (vertex is a maximum)</li>
-          <li>|a| &gt; 1: narrower than x&sup2;. |a| &lt; 1: wider than x&sup2;.</li>
-        </ul>
+    <div class="section-title"><span class="section-num">7</span><h2>Inverse Functions</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>What Is an Inverse?</h3>
+      <p class="explain">An inverse function <strong>undoes</strong> what the original function does. If f turns 2 into 7, then f<sup>-1</sup> turns 7 back into 2. The notation f<sup>-1</sup> does NOT mean 1/f(x). It means the inverse function.</p>
+      <p class="explain">A function can only have an inverse if it's <strong>one-to-one</strong>, meaning each y-value comes from only one x-value. You check this with the <strong>Horizontal Line Test</strong>: if any horizontal line crosses the graph more than once, it fails.</p>
+    </div>
+
+    <div class="card">
+      <h3>How to Find an Inverse</h3>
+      <p class="explain">Three steps: (1) replace f(x) with y, (2) swap x and y, (3) solve for y.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Find the inverse of <span class="f">f(x) = 3x - 5</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Write y = 3x - 5</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Swap x and y: x = 3y - 5</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Solve for y: x + 5 = 3y, so y = (x + 5)/3</span></div>
+        <div class="step"><span class="step-num">4.</span><span>Answer: <strong>f<sup>-1</sup>(x) = (x + 5)/3</strong></span></div>
       </div>
-      <div class="card">
-        <h3>Key Features of Parabolas</h3>
-        <ul>
-          <li><strong>Vertex</strong>: <span class="formula">(-b/(2a), f(-b/(2a)))</span></li>
-          <li><strong>Axis of symmetry</strong>: <span class="formula">x = -b/(2a)</span> (vertical line through the vertex)</li>
-          <li><strong>y-intercept</strong>: set x = 0, so y = c</li>
-          <li><strong>x-intercepts</strong> (if they exist): solve ax&sup2; + bx + c = 0 using quadratic formula or factoring</li>
-          <li>The discriminant tells you the number of x-intercepts: &Delta; &gt; 0 (two), &Delta; = 0 (one), &Delta; &lt; 0 (none)</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Applications of Quadratics</h3>
-        <ul>
-          <li><strong>Maximum/minimum problems</strong>: the vertex gives the optimal value</li>
-          <li>Projectile motion: height = -16t&sup2; + v&#8320;t + h&#8320; (in feet). Maximum height occurs at the vertex.</li>
-          <li>Revenue/profit optimization: find the vertex of the quadratic model</li>
-          <li>Area optimization: set up a quadratic and find the vertex</li>
-        </ul>
-      </div>
+
+      <div class="tip">The graphs of f and f<sup>-1</sup> are mirror images across the line y = x.</div>
     </div>
   </div>
 
-  <!-- SECTION 8 -->
+  <!-- ═══════ 8. QUADRATIC FUNCTIONS ═══════ -->
   <div class="section" id="s8">
-    <div class="section-header"><span class="section-number">8</span><h2>Polynomial Functions</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Polynomial Basics</h3>
-        <ul>
-          <li>General form: <span class="formula">f(x) = a<sub>n</sub>x<sup>n</sup> + a<sub>n-1</sub>x<sup>n-1</sup> + ... + a<sub>1</sub>x + a<sub>0</sub></span></li>
-          <li>The <strong>degree</strong> is the highest exponent. The <strong>leading coefficient</strong> is a<sub>n</sub>.</li>
-          <li>A polynomial of degree n has <strong>at most n real zeros</strong> and <strong>at most n - 1 turning points</strong></li>
-          <li>Domain of any polynomial is <strong>all real numbers</strong> (-&infin;, &infin;)</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>End Behavior</h3>
-        <table class="fact-table">
-          <tr><th>Degree</th><th>Leading Coefficient</th><th>Left End (x &rarr; -&infin;)</th><th>Right End (x &rarr; +&infin;)</th></tr>
-          <tr><td>Even</td><td>Positive</td><td>&uarr; (up)</td><td>&uarr; (up)</td></tr>
-          <tr><td>Even</td><td>Negative</td><td>&darr; (down)</td><td>&darr; (down)</td></tr>
-          <tr><td>Odd</td><td>Positive</td><td>&darr; (down)</td><td>&uarr; (up)</td></tr>
-          <tr><td>Odd</td><td>Negative</td><td>&uarr; (up)</td><td>&darr; (down)</td></tr>
-        </table>
-        <div class="mnemonic">Even degree: both ends go the same direction. Odd degree: ends go opposite directions. Positive leading coeff: right end goes up.</div>
-      </div>
-      <div class="card">
-        <h3>Zeros &amp; Multiplicity</h3>
-        <ul>
-          <li>If (x - r) is a factor, then r is a <strong>zero</strong> of the polynomial</li>
-          <li><strong>Multiplicity</strong>: the number of times a factor repeats</li>
-          <li>Odd multiplicity: the graph <strong>crosses</strong> the x-axis at that zero</li>
-          <li>Even multiplicity: the graph <strong>touches (bounces off)</strong> the x-axis at that zero</li>
-          <li><strong>Rational Zero Theorem</strong>: possible rational zeros are &plusmn; (factors of constant term) / (factors of leading coefficient)</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Division of Polynomials</h3>
-        <ul>
-          <li><strong>Long division</strong>: works for dividing by any polynomial</li>
-          <li><strong>Synthetic division</strong>: shortcut for dividing by (x - c) only</li>
-          <li><strong>Remainder Theorem</strong>: if f(x) is divided by (x - c), the remainder is f(c)</li>
-          <li><strong>Factor Theorem</strong>: (x - c) is a factor of f(x) if and only if f(c) = 0</li>
-        </ul>
+    <div class="section-title"><span class="section-num">8</span><h2>Quadratic Functions &amp; Parabolas</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>The Vertex: The Most Important Point</h3>
+      <p class="explain">Every parabola y = ax<sup>2</sup> + bx + c has a highest or lowest point called the <strong>vertex</strong>. You find it with this formula:</p>
+      <p class="explain" style="text-align:center;font-size:1.05rem;margin:0.5rem 0"><span class="f">x = -b / (2a)</span>, then plug that x back in to find y.</p>
+      <p class="explain">If a > 0, the parabola opens <strong>up</strong> (the vertex is a minimum). If a < 0, it opens <strong>down</strong> (the vertex is a maximum).</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Find the vertex of <span class="f">f(x) = -2x<sup>2</sup> + 8x - 3</span></p>
+        <div class="step"><span class="step-num">1.</span><span>a = -2, b = 8. So x = -8 / (2 &middot; -2) = -8 / -4 = 2</span></div>
+        <div class="step"><span class="step-num">2.</span><span>f(2) = -2(4) + 8(2) - 3 = -8 + 16 - 3 = 5</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Vertex: <strong>(2, 5)</strong>. Since a = -2 < 0, this is a <strong>maximum</strong>.</span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 9 -->
+  <!-- ═══════ 9. POLYNOMIALS ═══════ -->
   <div class="section" id="s9">
-    <div class="section-header"><span class="section-number">9</span><h2>Rational Functions</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Rational Function Basics</h3>
-        <ul>
-          <li>Form: <span class="formula">f(x) = p(x)/q(x)</span> where p and q are polynomials and q(x) &ne; 0</li>
-          <li><strong>Domain</strong>: all real numbers except where the denominator equals zero</li>
-          <li>Always check for <strong>common factors</strong> first (they create holes, not asymptotes)</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Asymptotes</h3>
-        <ul>
-          <li><strong>Vertical asymptote (VA)</strong>: set the denominator = 0 (after canceling common factors). The graph approaches but never crosses a VA.</li>
-          <li><strong>Horizontal asymptote (HA)</strong>: compare the degrees of numerator and denominator:</li>
-          <li>Degree of top &lt; bottom: <span class="formula">HA: y = 0</span></li>
-          <li>Degree of top = bottom: <span class="formula">HA: y = leading coeff of top / leading coeff of bottom</span></li>
-          <li>Degree of top &gt; bottom: <strong>no HA</strong> (may have a slant/oblique asymptote)</li>
-          <li><strong>Hole</strong>: occurs where a factor cancels from both numerator and denominator. Find the y-coordinate by evaluating the simplified function.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Graphing Rational Functions</h3>
-        <ul>
-          <li>Find the domain (exclude VA and holes)</li>
-          <li>Find x-intercepts: set numerator = 0</li>
-          <li>Find y-intercept: evaluate f(0)</li>
-          <li>Find VA, HA, and holes</li>
-          <li>Plot test points in each region between vertical asymptotes</li>
-          <li>The graph can cross a horizontal asymptote in the middle but approaches it at the ends</li>
-        </ul>
+    <div class="section-title"><span class="section-num">9</span><h2>Polynomial Basics</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>End Behavior</h3>
+      <p class="explain">The <strong>end behavior</strong> of a polynomial is what happens to the graph as x goes very far left or very far right. It depends on two things: the <strong>degree</strong> (highest exponent) and the <strong>leading coefficient</strong> (the number in front of the highest power).</p>
+      <table class="tbl">
+        <tr><th>Degree</th><th>Leading Coeff.</th><th>Left End</th><th>Right End</th></tr>
+        <tr><td>Even</td><td>Positive</td><td>↑ up</td><td>↑ up</td></tr>
+        <tr><td>Even</td><td>Negative</td><td>↓ down</td><td>↓ down</td></tr>
+        <tr><td>Odd</td><td>Positive</td><td>↓ down</td><td>↑ up</td></tr>
+        <tr><td>Odd</td><td>Negative</td><td>↑ up</td><td>↓ down</td></tr>
+      </table>
+      <div class="tip">Even degree = both ends go the same way. Odd degree = ends go opposite ways.</div>
+    </div>
+
+    <div class="card">
+      <h3>Zeros and Multiplicity</h3>
+      <p class="explain">When a factor like (x - 2) appears in a polynomial, x = 2 is a <strong>zero</strong> (the graph hits the x-axis there). The <strong>multiplicity</strong> is how many times that factor repeats:</p>
+      <p class="explain"><strong>Odd multiplicity</strong> (1, 3, 5...): the graph <strong>crosses</strong> the x-axis at that zero.</p>
+      <p class="explain"><strong>Even multiplicity</strong> (2, 4, 6...): the graph <strong>touches and bounces off</strong> the x-axis.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Describe the behavior at each zero of <span class="f">f(x) = (x + 1)<sup>2</sup>(x - 3)</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Zero at x = -1 with multiplicity <strong>2</strong> (even): graph <strong>bounces</strong> off the axis.</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Zero at x = 3 with multiplicity <strong>1</strong> (odd): graph <strong>crosses</strong> the axis.</span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 10 -->
+  <!-- ═══════ 10. RATIONAL FUNCTIONS ═══════ -->
   <div class="section" id="s10">
-    <div class="section-header"><span class="section-number">10</span><h2>Exponential Functions</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Exponential Function Basics</h3>
-        <ul>
-          <li>Form: <span class="formula">f(x) = b<sup>x</sup></span> where b &gt; 0 and b &ne; 1</li>
-          <li>Domain: (-&infin;, &infin;). Range: (0, &infin;). <strong>Always positive.</strong></li>
-          <li>y-intercept: (0, 1) because b<sup>0</sup> = 1</li>
-          <li>Horizontal asymptote: y = 0 (the x-axis)</li>
-          <li>b &gt; 1: <strong>exponential growth</strong> (increasing)</li>
-          <li>0 &lt; b &lt; 1: <strong>exponential decay</strong> (decreasing)</li>
-          <li>The function is <strong>one-to-one</strong>, so it has an inverse (logarithm)</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>The Number e</h3>
-        <ul>
-          <li><span class="formula">e &approx; 2.71828...</span> (an irrational number)</li>
-          <li>Called the <strong>natural base</strong></li>
-          <li>f(x) = e<sup>x</sup> is the natural exponential function</li>
-          <li>Arises naturally in continuous compound interest, population growth, and calculus</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Compound Interest Formulas</h3>
-        <table class="fact-table">
-          <tr><th>Type</th><th>Formula</th></tr>
-          <tr><td>Compound n times/year</td><td><span class="formula">A = P(1 + r/n)<sup>nt</sup></span></td></tr>
-          <tr><td>Continuous compounding</td><td><span class="formula">A = Pe<sup>rt</sup></span></td></tr>
-        </table>
-        <p style="margin-top:0.5rem">Where A = final amount, P = principal, r = annual rate (decimal), n = compounds per year, t = time in years.</p>
-      </div>
-      <div class="card">
-        <h3>Exponential Growth &amp; Decay Models</h3>
-        <ul>
-          <li>General model: <span class="formula">A(t) = A<sub>0</sub>e<sup>kt</sup></span></li>
-          <li>k &gt; 0: growth. k &lt; 0: decay.</li>
-          <li>A<sub>0</sub> = initial amount. t = time. A(t) = amount at time t.</li>
-          <li><strong>Half-life</strong>: time for half the substance to decay. Set A = A<sub>0</sub>/2 and solve for t.</li>
-          <li><strong>Doubling time</strong>: set A = 2A<sub>0</sub> and solve for t.</li>
-        </ul>
+    <div class="section-title"><span class="section-num">10</span><h2>Rational Functions</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>Asymptotes: Lines the Graph Approaches But Never Reaches</h3>
+      <p class="explain">A rational function is a fraction where the top and bottom are both polynomials: f(x) = p(x)/q(x).</p>
+      <p class="explain"><strong>Vertical asymptote (VA):</strong> Set the denominator equal to zero and solve. The graph shoots toward ±∞ near these x-values.</p>
+      <p class="explain"><strong>Horizontal asymptote (HA):</strong> Compare the degree of the numerator (top) to the degree of the denominator (bottom):</p>
+      <table class="tbl">
+        <tr><th>If...</th><th>Then the HA is...</th></tr>
+        <tr><td>Degree of top < degree of bottom</td><td>y = 0</td></tr>
+        <tr><td>Degree of top = degree of bottom</td><td>y = (leading coeff. of top) / (leading coeff. of bottom)</td></tr>
+        <tr><td>Degree of top > degree of bottom</td><td>No horizontal asymptote</td></tr>
+      </table>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Find the asymptotes of <span class="f">f(x) = (3x + 1) / (x - 4)</span></p>
+        <div class="step"><span class="step-num">1.</span><span>VA: set x - 4 = 0, so <strong>VA at x = 4</strong>.</span></div>
+        <div class="step"><span class="step-num">2.</span><span>HA: degree of top = 1, degree of bottom = 1 (equal).</span></div>
+        <div class="step"><span class="step-num">3.</span><span>HA = 3/1 = 3, so <strong>HA at y = 3</strong>.</span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 11 -->
+  <!-- ═══════ 11. EXPONENTIALS & LOGS ═══════ -->
   <div class="section" id="s11">
-    <div class="section-header"><span class="section-number">11</span><h2>Logarithmic Functions</h2></div>
-    <div class="card-grid">
-      <div class="card">
-        <h3>Logarithm Definition</h3>
-        <p>A logarithm is the <strong>inverse of an exponential</strong>:</p>
-        <p><span class="formula">y = log<sub>b</sub>(x) means b<sup>y</sup> = x</span></p>
-        <ul>
-          <li>"log base b of x equals y" means "b raised to the y equals x"</li>
-          <li><span class="formula">log<sub>b</sub>(b<sup>x</sup>) = x</span> and <span class="formula">b<sup>log<sub>b</sub>(x)</sup> = x</span> (inverse properties)</li>
-          <li>Domain: (0, &infin;). Range: (-&infin;, &infin;). Vertical asymptote: x = 0.</li>
-          <li>Passes through (1, 0) because log<sub>b</sub>(1) = 0</li>
-          <li>Passes through (b, 1) because log<sub>b</sub>(b) = 1</li>
-        </ul>
+    <div class="section-title"><span class="section-num">11</span><h2>Exponentials &amp; Logarithms</h2></div>
+    <hr class="section-rule">
+
+    <div class="card">
+      <h3>Exponential Functions</h3>
+      <p class="explain">An exponential function has the variable in the exponent: <span class="f">f(x) = b<sup>x</sup></span>, where b > 0 and b ≠ 1. The graph always passes through (0, 1) because anything to the zero power is 1.</p>
+      <p class="explain">If b > 1, the function <strong>grows</strong> (gets bigger fast). If 0 < b < 1, the function <strong>decays</strong> (shrinks toward zero).</p>
+      <p class="explain">The special base <span class="f">e ≈ 2.71828</span> shows up constantly in science and finance.</p>
+    </div>
+
+    <div class="card">
+      <h3>What Is a Logarithm?</h3>
+      <p class="explain">A logarithm answers the question: <strong>"What exponent do I need?"</strong></p>
+      <p class="explain" style="text-align:center;font-size:1.05rem;margin:0.5rem 0"><span class="f">log<sub>b</sub>(x) = y</span> means <span class="f">b<sup>y</sup> = x</span></p>
+      <p class="explain">In plain English: "log base b of x" asks, "what power do I raise b to in order to get x?"</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Evaluate: <span class="f">log<sub>2</sub>(32)</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Ask: "2 to what power gives 32?"</span></div>
+        <div class="step"><span class="step-num">2.</span><span>2<sup>5</sup> = 32</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Answer: <strong>log<sub>2</sub>(32) = 5</strong></span></div>
       </div>
-      <div class="card">
-        <h3>Common &amp; Natural Logarithms</h3>
-        <ul>
-          <li><span class="formula">log(x) = log<sub>10</sub>(x)</span>: common logarithm (base 10)</li>
-          <li><span class="formula">ln(x) = log<sub>e</sub>(x)</span>: natural logarithm (base e)</li>
-          <li>These are the two logs on your calculator</li>
-          <li><strong>Change of base formula</strong>: <span class="formula">log<sub>b</sub>(x) = ln(x)/ln(b) = log(x)/log(b)</span></li>
-        </ul>
+
+      <p class="explain" style="margin-top:0.75rem">Two key facts: <span class="f">log<sub>b</sub>(1) = 0</span> (because b<sup>0</sup> = 1) and <span class="f">log<sub>b</sub>(b) = 1</span> (because b<sup>1</sup> = b).</p>
+    </div>
+
+    <div class="card">
+      <h3>Log Properties</h3>
+      <p class="explain">Logarithms have three properties that let you break apart or combine expressions. These mirror the exponent rules:</p>
+      <table class="tbl">
+        <tr><th>Property</th><th>Formula</th><th>What It Does</th></tr>
+        <tr><td>Product rule</td><td><span class="f">log(MN) = log(M) + log(N)</span></td><td>Turns multiplication into addition</td></tr>
+        <tr><td>Quotient rule</td><td><span class="f">log(M/N) = log(M) - log(N)</span></td><td>Turns division into subtraction</td></tr>
+        <tr><td>Power rule</td><td><span class="f">log(M<sup>p</sup>) = p &middot; log(M)</span></td><td>Brings the exponent down as a multiplier</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Solving Exponential Equations</h3>
+      <p class="explain">When the variable is in the exponent and you can't match bases, <strong>take the log of both sides</strong> and use the power rule to bring the exponent down.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>Solve: <span class="f">5<sup>x</sup> = 200</span></p>
+        <div class="step"><span class="step-num">1.</span><span>Take ln of both sides: ln(5<sup>x</sup>) = ln(200)</span></div>
+        <div class="step"><span class="step-num">2.</span><span>Power rule brings x down: x &middot; ln(5) = ln(200)</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Divide: x = ln(200) / ln(5) ≈ 3.29</span></div>
       </div>
-      <div class="card">
-        <h3>Logarithm Properties</h3>
-        <table class="fact-table">
-          <tr><th>Property</th><th>Formula</th></tr>
-          <tr><td>Product rule</td><td><span class="formula">log<sub>b</sub>(MN) = log<sub>b</sub>(M) + log<sub>b</sub>(N)</span></td></tr>
-          <tr><td>Quotient rule</td><td><span class="formula">log<sub>b</sub>(M/N) = log<sub>b</sub>(M) - log<sub>b</sub>(N)</span></td></tr>
-          <tr><td>Power rule</td><td><span class="formula">log<sub>b</sub>(M<sup>p</sup>) = p &middot; log<sub>b</sub>(M)</span></td></tr>
-          <tr><td>Log of 1</td><td><span class="formula">log<sub>b</sub>(1) = 0</span></td></tr>
-          <tr><td>Log of the base</td><td><span class="formula">log<sub>b</sub>(b) = 1</span></td></tr>
-        </table>
-        <div class="mnemonic">Logs turn multiplication into addition, division into subtraction, and exponents into multiplication. They "bring exponents down."</div>
-      </div>
-      <div class="card">
-        <h3>Solving Exponential Equations</h3>
-        <ul>
-          <li><strong>Same base method</strong>: if b<sup>m</sup> = b<sup>n</sup>, then m = n</li>
-          <li><strong>Take the log of both sides</strong>: for equations like 3<sup>x</sup> = 20, take ln (or log) of both sides and use the power rule to bring x down</li>
-          <li>For equations with e: <span class="formula">e<sup>expression</sup> = k &rarr; expression = ln(k)</span></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Solving Logarithmic Equations</h3>
-        <ul>
-          <li><strong>Rewrite in exponential form</strong>: log<sub>b</sub>(expression) = k means b<sup>k</sup> = expression</li>
-          <li>If both sides are single logs with the same base: set the arguments equal</li>
-          <li>Use log properties to <strong>condense</strong> multiple logs into one before converting</li>
-          <li><strong>Always check for extraneous solutions</strong>: the argument of a logarithm must be positive</li>
-        </ul>
+    </div>
+
+    <div class="card">
+      <h3>Compound Interest</h3>
+      <p class="explain">Two formulas to know:</p>
+      <p class="explain"><strong>Compounded n times per year:</strong> <span class="f">A = P(1 + r/n)<sup>nt</sup></span></p>
+      <p class="explain"><strong>Compounded continuously:</strong> <span class="f">A = Pe<sup>rt</sup></span></p>
+      <p class="explain">Where A = final amount, P = principal (starting amount), r = annual rate as a decimal, n = times compounded per year, t = years.</p>
+
+      <div class="example">
+        <div class="example-label">Worked Example</div>
+        <p>$5,000 is invested at 4% compounded continuously. How much after 10 years?</p>
+        <div class="step"><span class="step-num">1.</span><span>Use A = Pe<sup>rt</sup> with P = 5000, r = 0.04, t = 10.</span></div>
+        <div class="step"><span class="step-num">2.</span><span>A = 5000 &middot; e<sup>0.4</sup> ≈ 5000 &middot; 1.4918 ≈ <strong>$7,459.12</strong></span></div>
       </div>
     </div>
   </div>
 
-  <!-- SECTION 12 -->
+  <!-- ═══════ 12. QUIZ ═══════ -->
   <div class="section" id="s12">
-    <div class="section-header"><span class="section-number">12</span><h2>Key Formulas &amp; Quick Reference</h2></div>
-    <div class="card-grid">
-      <div class="card card-full">
-        <h3>Formulas and Facts to Know Cold</h3>
-        <table class="fact-table">
-          <tr><th>Item</th><th>Formula / Value</th></tr>
-          <tr><td>Quadratic formula</td><td><span class="constant">x = (-b &plusmn; &radic;(b&sup2; - 4ac)) / 2a</span></td></tr>
-          <tr><td>Discriminant</td><td><span class="constant">&Delta; = b&sup2; - 4ac</span></td></tr>
-          <tr><td>Vertex of a parabola</td><td><span class="constant">x = -b/(2a)</span></td></tr>
-          <tr><td>Difference of squares</td><td><span class="constant">a&sup2; - b&sup2; = (a+b)(a-b)</span></td></tr>
-          <tr><td>Difference quotient</td><td><span class="constant">[f(x+h) - f(x)] / h</span></td></tr>
-          <tr><td>Composition</td><td><span class="constant">(f &compfn; g)(x) = f(g(x))</span></td></tr>
-          <tr><td>Inverse relationship</td><td><span class="constant">f(f<sup>-1</sup>(x)) = x = f<sup>-1</sup>(f(x))</span></td></tr>
-          <tr><td>Log definition</td><td><span class="constant">log<sub>b</sub>(x) = y &hArr; b<sup>y</sup> = x</span></td></tr>
-          <tr><td>Change of base</td><td><span class="constant">log<sub>b</sub>(x) = ln(x) / ln(b)</span></td></tr>
-          <tr><td>Compound interest</td><td><span class="constant">A = P(1 + r/n)<sup>nt</sup></span></td></tr>
-          <tr><td>Continuous compounding</td><td><span class="constant">A = Pe<sup>rt</sup></span></td></tr>
-          <tr><td>Exponential growth/decay</td><td><span class="constant">A(t) = A<sub>0</sub>e<sup>kt</sup></span></td></tr>
-          <tr><td>Value of e</td><td><span class="constant">&approx; 2.71828</span></td></tr>
-          <tr><td>HA rule (degrees equal)</td><td><span class="constant">y = leading coeff top / leading coeff bottom</span></td></tr>
-          <tr><td>HA rule (degree top &lt; bottom)</td><td><span class="constant">y = 0</span></td></tr>
-          <tr><td>HA rule (degree top &gt; bottom)</td><td><span class="constant">no horizontal asymptote</span></td></tr>
-          <tr><td>Odd multiplicity at zero</td><td><span class="constant">graph crosses x-axis</span></td></tr>
-          <tr><td>Even multiplicity at zero</td><td><span class="constant">graph touches/bounces off x-axis</span></td></tr>
-          <tr><td>f<sup>-1</sup> graph relationship</td><td><span class="constant">reflection of f across y = x</span></td></tr>
-        </table>
-      </div>
+    <div class="section-title"><span class="section-num">12</span><h2>Practice Quiz</h2></div>
+    <hr class="section-rule">
+    <p style="margin-bottom:1.25rem;color:var(--text-soft);">Pick the best answer for each, then check your score at the bottom.</p>
+    <div id="quiz-box"></div>
+    <div class="quiz-bar">
+      <button class="btn btn-primary" onclick="checkAll()">Check My Answers</button>
+      <button class="btn btn-outline" onclick="resetAll()">Start Over</button>
+    </div>
+    <div class="score-box" id="score-box">
+      <div class="score-big" id="score-num"></div>
+      <div class="score-msg" id="score-msg"></div>
     </div>
   </div>
 
-  <!-- SECTION 13: Quiz -->
+  <!-- ═══════ 13. FLASHCARDS ═══════ -->
   <div class="section" id="s13">
-    <div class="section-header"><span class="section-number">13</span><h2>Self-Test Quiz</h2></div>
-    <p style="margin-bottom:1.5rem; color: var(--text-muted);">Select an answer for each question, then check your score.</p>
-    <div id="quiz-container"></div>
-    <div class="quiz-controls">
-      <button class="quiz-btn quiz-btn-primary" onclick="checkQuiz()">Check My Answers</button>
-      <button class="quiz-btn quiz-btn-secondary" onclick="resetQuiz()">Reset Quiz</button>
-    </div>
-    <div class="quiz-score" id="quiz-score">
-      <div class="score-number" id="score-number"></div>
-      <div class="score-label" id="score-label"></div>
-    </div>
+    <div class="section-title"><span class="section-num">13</span><h2>Flashcards</h2></div>
+    <hr class="section-rule">
+    <p style="margin-bottom:0.75rem;color:var(--text-soft);">Click a card to flip it.</p>
+    <div class="fc-filters" id="fc-filters"></div>
+    <div class="fc-grid" id="fc-box"></div>
   </div>
 
-  <!-- SECTION 14: Flashcards -->
-  <div class="section" id="s14">
-    <div class="section-header"><span class="section-number">14</span><h2>Flashcards</h2></div>
-    <p style="margin-bottom:1rem; color: var(--text-muted);">Click any card to flip it. Use filters to focus on specific topics.</p>
-    <div class="fc-category-filter" id="fc-filters"></div>
-    <div class="flashcard-grid" id="flashcard-container"></div>
-  </div>
-
-  <!-- SECTION 15: Short Answer -->
-  <div class="section" id="s15">
-    <div class="section-header"><span class="section-number">15</span><h2>Short Answer Practice</h2></div>
-    <p style="margin-bottom:1.5rem; color: var(--text-muted);">Type your answer, then click "Grade My Answer." The grader checks for key concepts using keyword matching.</p>
-    <div id="sa-container"></div>
-    <div class="sa-note">These are graded by keyword and concept matching, not by AI. Include specific terms and concepts for the best score.</div>
-  </div>
-
-  <div class="footer">College Algebra Fundamentals &mdash; Study Reference</div>
+  <div class="footer">College Algebra Basics &mdash; MAC 1105 Study Guide</div>
 </div>
 
 <script>
-// ===== QUIZ DATA =====
-const quizData = [
-{q:"Which of the following is an irrational number?",opts:["3/7","0.333...","&radic;2","-5"],ans:2,explain:"&radic;2 is irrational because it cannot be expressed as a fraction and its decimal is non-terminating and non-repeating.",cat:"Real Numbers"},
-{q:"Simplify: x&sup3; &middot; x&sup5;",opts:["x&sup8;","x<sup>15</sup>","x&sup2;","2x&sup8;"],ans:0,explain:"Using the product rule: x&sup3; &middot; x&sup5; = x^(3+5) = x&sup8;.",cat:"Exponents"},
-{q:"What is the value of 5<sup>0</sup>?",opts:["0","5","1","Undefined"],ans:2,explain:"Any nonzero number raised to the zero power equals 1.",cat:"Exponents"},
-{q:"Factor completely: x&sup2; - 49",opts:["(x - 7)&sup2;","(x + 7)(x - 7)","(x + 49)(x - 1)","Cannot be factored"],ans:1,explain:"This is a difference of squares: a&sup2; - b&sup2; = (a+b)(a-b), so x&sup2; - 49 = (x+7)(x-7).",cat:"Factoring"},
-{q:"Solve: 2x + 5 = 17",opts:["x = 6","x = 11","x = 7","x = 22"],ans:0,explain:"2x + 5 = 17 &rarr; 2x = 12 &rarr; x = 6.",cat:"Linear Equations"},
-{q:"Using the quadratic formula, what are the solutions to x&sup2; - 5x + 6 = 0?",opts:["x = 2 and x = 3","x = -2 and x = -3","x = 1 and x = 6","x = -1 and x = 6"],ans:0,explain:"Using the formula (or factoring as (x-2)(x-3) = 0), we get x = 2 and x = 3.",cat:"Quadratic Equations"},
-{q:"If the discriminant b&sup2; - 4ac is negative, the quadratic equation has:",opts:["Two real solutions","One repeated real solution","No real solutions","Infinitely many solutions"],ans:2,explain:"A negative discriminant means the quadratic has no real solutions (the solutions are complex conjugates).",cat:"Quadratic Equations"},
-{q:"Solve: |x - 3| = 7",opts:["x = 10 only","x = -4 only","x = 10 or x = -4","x = 4 or x = -10"],ans:2,explain:"|x - 3| = 7 gives x - 3 = 7 or x - 3 = -7, so x = 10 or x = -4.",cat:"Absolute Value"},
-{q:"Solve: |2x + 1| < 5",opts:["x < 2","x > -3 AND x < 2 (i.e., -3 < x < 2)","x < -3 OR x > 2","x = -3 or x = 2"],ans:1,explain:"|2x + 1| < 5 means -5 < 2x + 1 < 5, so -6 < 2x < 4, giving -3 < x < 2.",cat:"Inequalities"},
-{q:"When solving an inequality, you must flip the inequality sign when you:",opts:["Add a negative number","Subtract from both sides","Multiply or divide by a negative number","Square both sides"],ans:2,explain:"The inequality sign reverses whenever you multiply or divide both sides by a negative number.",cat:"Inequalities"},
-{q:"Which test determines whether a graph represents a function?",opts:["Horizontal Line Test","Vertical Line Test","Slope Test","Symmetry Test"],ans:1,explain:"The Vertical Line Test: if any vertical line crosses the graph more than once, it is NOT a function.",cat:"Functions"},
-{q:"What is the domain of f(x) = &radic;(x - 4)?",opts:["All real numbers","x > 4, or (4, &infin;)","x &ge; 4, or [4, &infin;)","x &le; 4"],ans:2,explain:"The expression under an even root must be &ge; 0, so x - 4 &ge; 0, giving x &ge; 4.",cat:"Functions"},
-{q:"What is the domain of f(x) = 1/(x&sup2; - 9)?",opts:["All real numbers","All real numbers except x = 3","All real numbers except x = 3 and x = -3","x > 3"],ans:2,explain:"The denominator x&sup2; - 9 = (x+3)(x-3) cannot be zero, so x &ne; 3 and x &ne; -3.",cat:"Functions"},
-{q:"If f(x) = 2x + 1, what is f(3)?",opts:["5","6","7","9"],ans:2,explain:"f(3) = 2(3) + 1 = 6 + 1 = 7.",cat:"Functions"},
-{q:"An even function has symmetry about:",opts:["The x-axis","The y-axis","The origin","The line y = x"],ans:1,explain:"An even function satisfies f(-x) = f(x) and is symmetric about the y-axis.",cat:"Functions"},
-{q:"The graph of f(x) + 3 is the graph of f(x) shifted:",opts:["Right 3","Left 3","Up 3","Down 3"],ans:2,explain:"Adding a constant outside the function shifts the graph vertically upward.",cat:"Transformations"},
-{q:"The graph of f(x - 2) is the graph of f(x) shifted:",opts:["Left 2","Right 2","Up 2","Down 2"],ans:1,explain:"f(x - 2) shifts the graph RIGHT 2 units. Horizontal shifts are opposite the sign inside.",cat:"Transformations"},
-{q:"What does -f(x) do to the graph of f(x)?",opts:["Reflects over the y-axis","Reflects over the x-axis","Shifts down","Shifts left"],ans:1,explain:"Multiplying the entire function by -1 reflects the graph across the x-axis.",cat:"Transformations"},
-{q:"If (f &compfn; g)(x) = f(g(x)), and f(x) = x&sup2; and g(x) = x + 3, what is (f &compfn; g)(2)?",opts:["7","25","9","49"],ans:1,explain:"g(2) = 2 + 3 = 5. Then f(5) = 5&sup2; = 25.",cat:"Function Operations"},
-{q:"A function has an inverse if and only if it passes the:",opts:["Vertical Line Test","Horizontal Line Test","Both tests","Neither test"],ans:1,explain:"A function must be one-to-one (pass the Horizontal Line Test) to have an inverse function.",cat:"Inverse Functions"},
-{q:"The graphs of f and f<sup>-1</sup> are reflections across which line?",opts:["y = 0","x = 0","y = x","y = -x"],ans:2,explain:"A function and its inverse are always reflections of each other across the line y = x.",cat:"Inverse Functions"},
-{q:"What is the vertex of f(x) = (x - 3)&sup2; + 5?",opts:["(3, 5)","(-3, 5)","(3, -5)","(-3, -5)"],ans:0,explain:"In vertex form f(x) = a(x - h)&sup2; + k, the vertex is (h, k) = (3, 5).",cat:"Quadratics"},
-{q:"For f(x) = -2x&sup2; + 8x - 3, the parabola opens:",opts:["Up, because a = -2","Down, because a = -2","Up, because b is positive","Down, because c is negative"],ans:1,explain:"The parabola opens downward because the leading coefficient a = -2 is negative.",cat:"Quadratics"},
-{q:"What is the end behavior of f(x) = -x&sup3; + 2x?",opts:["Both ends go up","Both ends go down","Left up, right down","Left down, right up"],ans:2,explain:"Odd degree with negative leading coefficient: as x &rarr; -&infin;, f(x) &rarr; +&infin; and as x &rarr; +&infin;, f(x) &rarr; -&infin;.",cat:"Polynomials"},
-{q:"If (x - 2) is a factor with multiplicity 2, the graph at x = 2 will:",opts:["Cross the x-axis","Touch the x-axis and bounce off","Have a vertical asymptote","Be undefined"],ans:1,explain:"Even multiplicity means the graph touches (bounces off) the x-axis at that zero without crossing.",cat:"Polynomials"},
-{q:"For f(x) = (x + 1)/(x - 4), the vertical asymptote is at:",opts:["x = -1","x = 4","x = 1","x = -4"],ans:1,explain:"Set the denominator equal to zero: x - 4 = 0, so x = 4 is the vertical asymptote.",cat:"Rational Functions"},
-{q:"For f(x) = (3x&sup2; + 1)/(x&sup2; - 5), the horizontal asymptote is:",opts:["y = 0","y = 3","y = -5","No horizontal asymptote"],ans:1,explain:"Degrees are equal (both 2), so HA = leading coefficient of top / leading coefficient of bottom = 3/1 = 3.",cat:"Rational Functions"},
-{q:"log<sub>2</sub>(32) = ?",opts:["4","5","6","16"],ans:1,explain:"2&sup5; = 32, so log base 2 of 32 = 5.",cat:"Logarithms"},
-{q:"Which property says log(MN) = log(M) + log(N)?",opts:["Power rule","Product rule","Quotient rule","Change of base"],ans:1,explain:"The product rule of logarithms states that the log of a product equals the sum of the logs.",cat:"Logarithms"},
-{q:"Solve: e<sup>x</sup> = 20",opts:["x = 20/e","x = ln(20)","x = log(20)","x = 20 - e"],ans:1,explain:"Take the natural log of both sides: ln(e^x) = ln(20), so x = ln(20).",cat:"Exponential Equations"},
-{q:"$5,000 is invested at 4% compounded continuously. Which formula gives the amount after t years?",opts:["A = 5000(1.04)<sup>t</sup>","A = 5000e<sup>0.04t</sup>","A = 5000(1 + 0.04/12)<sup>12t</sup>","A = 5000 + 0.04t"],ans:1,explain:"Continuous compounding uses A = Pe^(rt) = 5000e^(0.04t).",cat:"Applications"}
+// ===== QUIZ =====
+const Q = [
+  {q:"Simplify: x<sup>5</sup> &middot; x<sup>3</sup>",o:["x<sup>15</sup>","x<sup>8</sup>","x<sup>2</sup>","2x<sup>8</sup>"],a:1,e:"Same base, so add exponents: 5 + 3 = 8. Answer: x⁸.",t:"Exponents"},
+  {q:"What is 7<sup>0</sup>?",o:["0","7","1","49"],a:2,e:"Any nonzero number to the zero power equals 1.",t:"Exponents"},
+  {q:"Factor: x<sup>2</sup> - 36",o:["(x - 6)<sup>2</sup>","(x + 6)(x - 6)","(x + 36)(x - 1)","Cannot be factored"],a:1,e:"Difference of squares: x² - 6² = (x + 6)(x - 6).",t:"Factoring"},
+  {q:"Factor: x<sup>2</sup> + 5x + 6",o:["(x + 1)(x + 6)","(x + 2)(x + 3)","(x - 2)(x - 3)","(x + 5)(x + 1)"],a:1,e:"Need two numbers that multiply to 6 and add to 5. That's 2 and 3.",t:"Factoring"},
+  {q:"Solve: 4x - 3 = 13",o:["x = 2.5","x = 4","x = 10","x = 16"],a:1,e:"Add 3: 4x = 16. Divide by 4: x = 4.",t:"Linear Equations"},
+  {q:"Solve: x<sup>2</sup> - 5x + 6 = 0",o:["x = 2 and x = 3","x = -2 and x = -3","x = 1 and x = 6","x = -1 and x = 6"],a:0,e:"Factor: (x - 2)(x - 3) = 0, so x = 2 and x = 3.",t:"Quadratic Equations"},
+  {q:"If the discriminant is negative, the equation has:",o:["Two real solutions","One real solution","No real solutions","Infinite solutions"],a:2,e:"A negative discriminant means the square root is not real, so there are no real solutions.",t:"Discriminant"},
+  {q:"Solve: |x - 3| = 7",o:["x = 10 only","x = -4 only","x = 10 or x = -4","x = 4 or x = -10"],a:2,e:"Two equations: x - 3 = 7 gives x = 10. x - 3 = -7 gives x = -4.",t:"Absolute Value"},
+  {q:"When solving an inequality, flip the sign when you:",o:["Add a negative","Subtract from both sides","Multiply or divide by a negative","Square both sides"],a:2,e:"The inequality reverses only when you multiply or divide by a negative.",t:"Inequalities"},
+  {q:"What is the domain of f(x) = √(x - 4)?",o:["All real numbers","x > 4","x ≥ 4, or [4, ∞)","x ≤ 4"],a:2,e:"Need x - 4 ≥ 0, so x ≥ 4.",t:"Functions"},
+  {q:"If f(x) = 2x + 1, what is f(3)?",o:["5","6","7","9"],a:2,e:"f(3) = 2(3) + 1 = 7.",t:"Functions"},
+  {q:"Which test checks if a graph is a function?",o:["Horizontal Line Test","Vertical Line Test","Slope Test","Symmetry Test"],a:1,e:"If a vertical line crosses the graph more than once, it's not a function.",t:"Functions"},
+  {q:"f(x) + 3 shifts the graph:",o:["Right 3","Left 3","Up 3","Down 3"],a:2,e:"Adding outside the function = vertical shift up.",t:"Transformations"},
+  {q:"f(x - 2) shifts the graph:",o:["Left 2","Right 2","Up 2","Down 2"],a:1,e:"Horizontal shifts go opposite the sign: f(x - 2) shifts right 2.",t:"Transformations"},
+  {q:"A function has an inverse only if it passes the:",o:["Vertical Line Test","Horizontal Line Test","Both","Neither"],a:1,e:"It must be one-to-one, which the Horizontal Line Test checks.",t:"Inverse Functions"},
+  {q:"Find the vertex of f(x) = (x - 3)<sup>2</sup> + 5",o:["(3, 5)","(-3, 5)","(3, -5)","(-3, -5)"],a:0,e:"Vertex form: a(x - h)² + k. The vertex is (h, k) = (3, 5).",t:"Quadratics"},
+  {q:"If a = -2 in f(x) = ax<sup>2</sup> + bx + c, the parabola opens:",o:["Up","Down","Left","Right"],a:1,e:"Negative a means the parabola opens downward.",t:"Quadratics"},
+  {q:"If (x - 2) has multiplicity 2, the graph at x = 2 will:",o:["Cross the x-axis","Touch and bounce off","Have a vertical asymptote","Be undefined"],a:1,e:"Even multiplicity = the graph bounces off the x-axis.",t:"Polynomials"},
+  {q:"For f(x) = (3x + 1)/(x - 4), the vertical asymptote is:",o:["x = -1/3","x = 4","x = -4","x = 3"],a:1,e:"Set denominator to 0: x - 4 = 0, so x = 4.",t:"Rational Functions"},
+  {q:"log<sub>2</sub>(32) = ?",o:["4","5","6","16"],a:1,e:"2 to what power gives 32? 2⁵ = 32, so the answer is 5.",t:"Logarithms"},
+  {q:"Solve: e<sup>x</sup> = 20",o:["x = 20/e","x = ln(20)","x = log(20)","x = 20 - e"],a:1,e:"Take ln of both sides: x = ln(20).",t:"Exponentials"},
+  {q:"$5,000 at 4% compounded continuously uses which formula?",o:["A = 5000(1.04)<sup>t</sup>","A = 5000e<sup>0.04t</sup>","A = 5000(1 + 0.04/12)<sup>12t</sup>","A = 5000 + 200t"],a:1,e:"Continuous compounding = A = Pe^(rt).",t:"Applications"},
 ];
 
-// ===== FLASHCARD DATA =====
-const flashcardData = [
-{front:"What are the exponent product and quotient rules?",back:"Product: a^m &middot; a^n = a^(m+n). Quotient: a^m / a^n = a^(m-n). Same base, add or subtract exponents.",cat:"Exponents & Radicals"},
-{front:"What is a^0 equal to?",back:"1 (for any a &ne; 0).",cat:"Exponents & Radicals"},
-{front:"What does a negative exponent mean?",back:"a^(-n) = 1/a^n. A negative exponent means reciprocal.",cat:"Exponents & Radicals"},
-{front:"How do you convert between radicals and rational exponents?",back:"a^(m/n) = (nth root of a)^m = nth root of (a^m).",cat:"Exponents & Radicals"},
-{front:"Factor: a&sup2; - b&sup2;",back:"(a + b)(a - b). This is the difference of squares pattern.",cat:"Factoring"},
-{front:"Factor: a&sup3; + b&sup3;",back:"(a + b)(a&sup2; - ab + b&sup2;). Remember SOAP: Same, Opposite, Always Positive.",cat:"Factoring"},
-{front:"What is the first step in any factoring problem?",back:"Factor out the GCF (greatest common factor) first.",cat:"Factoring"},
-{front:"State the quadratic formula.",back:"x = [-b &plusmn; &radic;(b&sup2; - 4ac)] / 2a, for ax&sup2; + bx + c = 0.",cat:"Equations"},
-{front:"What does the discriminant tell you?",back:"&Delta; = b&sup2; - 4ac. Positive: 2 real solutions. Zero: 1 repeated solution. Negative: no real solutions.",cat:"Equations"},
-{front:"How do you solve an absolute value equation |ax + b| = c?",back:"Set up two equations: ax + b = c OR ax + b = -c (c must be &ge; 0).",cat:"Equations"},
-{front:"What must you always check when solving radical equations?",back:"Check for extraneous solutions. Squaring both sides can introduce false solutions.",cat:"Equations"},
-{front:"What must you check when solving rational equations?",back:"Check that your solutions do not make any denominator equal to zero.",cat:"Equations"},
-{front:"When do you flip the inequality sign?",back:"When you multiply or divide both sides by a negative number.",cat:"Inequalities"},
-{front:"|x| < a translates to what compound inequality?",back:"-a < x < a (an AND/between statement).",cat:"Inequalities"},
-{front:"|x| > a translates to what?",back:"x < -a OR x > a (two separate rays).",cat:"Inequalities"},
-{front:"How do you write interval notation for x &ge; 3?",back:"[3, &infin;). Bracket at 3 (included), parenthesis at infinity (always).",cat:"Inequalities"},
-{front:"What is a function?",back:"A relation where each input (x) maps to exactly one output (y). Passes the Vertical Line Test.",cat:"Functions"},
-{front:"What is the domain of a function?",back:"All possible input (x) values. Restrictions: can't divide by 0, can't take even root of negative, can't take log of 0 or negative.",cat:"Functions"},
-{front:"What is the difference quotient?",back:"[f(x + h) - f(x)] / h. It measures average rate of change.",cat:"Functions"},
-{front:"How do you determine if a function is even?",back:"f(-x) = f(x) for all x. The graph is symmetric about the y-axis.",cat:"Functions"},
-{front:"How do you determine if a function is odd?",back:"f(-x) = -f(x) for all x. The graph is symmetric about the origin.",cat:"Functions"},
-{front:"What does f(x) + k do to the graph?",back:"Shifts the graph UP k units (vertical shift).",cat:"Transformations"},
-{front:"What does f(x - h) do to the graph?",back:"Shifts the graph RIGHT h units. Horizontal shifts are opposite the sign inside.",cat:"Transformations"},
-{front:"What does -f(x) do?",back:"Reflects the graph over the x-axis.",cat:"Transformations"},
-{front:"What does f(-x) do?",back:"Reflects the graph over the y-axis.",cat:"Transformations"},
-{front:"What does a vertical stretch look like?",back:"af(x) where a > 1 stretches the graph vertically (taller/narrower).",cat:"Transformations"},
-{front:"Name the 8 parent functions.",back:"Linear (x), quadratic (x&sup2;), cubic (x&sup3;), square root, absolute value, reciprocal (1/x), exponential (b^x), logarithmic (log x).",cat:"Transformations"},
-{front:"What is (f &compfn; g)(x)?",back:"f(g(x)). Evaluate g first, then plug the result into f. Order matters.",cat:"Function Operations"},
-{front:"What must be true for a function to have an inverse?",back:"It must be one-to-one (pass the Horizontal Line Test).",cat:"Inverse Functions"},
-{front:"How do you find f inverse algebraically?",back:"Replace f(x) with y, swap x and y, then solve for y.",cat:"Inverse Functions"},
-{front:"What is the relationship between the graphs of f and f inverse?",back:"They are reflections of each other across the line y = x.",cat:"Inverse Functions"},
-{front:"What is f(f inverse(x)) equal to?",back:"x. The function and its inverse undo each other.",cat:"Inverse Functions"},
-{front:"State the vertex form of a quadratic.",back:"f(x) = a(x - h)&sup2; + k, where (h, k) is the vertex.",cat:"Quadratics"},
-{front:"How do you find the vertex from standard form?",back:"h = -b/(2a), then k = f(h). The vertex is (h, k).",cat:"Quadratics"},
-{front:"How does the sign of 'a' affect a parabola?",back:"a > 0: opens up (minimum). a < 0: opens down (maximum).",cat:"Quadratics"},
-{front:"How does |a| affect the width of a parabola?",back:"|a| > 1: narrower than x&sup2;. |a| < 1: wider than x&sup2;.",cat:"Quadratics"},
-{front:"A polynomial of degree n has at most how many zeros? Turning points?",back:"At most n real zeros and at most n - 1 turning points.",cat:"Polynomials"},
-{front:"What is end behavior for odd degree, positive leading coefficient?",back:"Left end goes down, right end goes up (like x&sup3;).",cat:"Polynomials"},
-{front:"Odd multiplicity at a zero means the graph does what?",back:"Crosses the x-axis at that zero.",cat:"Polynomials"},
-{front:"Even multiplicity at a zero means the graph does what?",back:"Touches (bounces off) the x-axis without crossing.",cat:"Polynomials"},
-{front:"What is the Remainder Theorem?",back:"When f(x) is divided by (x - c), the remainder equals f(c).",cat:"Polynomials"},
-{front:"How do you find vertical asymptotes of a rational function?",back:"Set the denominator equal to zero (after canceling common factors with the numerator).",cat:"Rational Functions"},
-{front:"What is the HA rule when degree of top equals degree of bottom?",back:"y = leading coefficient of numerator / leading coefficient of denominator.",cat:"Rational Functions"},
-{front:"When is there no horizontal asymptote?",back:"When the degree of the numerator is greater than the degree of the denominator.",cat:"Rational Functions"},
-{front:"What creates a hole in a rational function?",back:"A factor that cancels from both the numerator and denominator. The x-value of the hole is the zero of that factor.",cat:"Rational Functions"},
-{front:"What is the general form of an exponential function?",back:"f(x) = b^x, where b > 0 and b &ne; 1. Domain: all reals. Range: (0, &infin;). HA: y = 0.",cat:"Exponentials"},
-{front:"What is the value of e?",back:"e &approx; 2.71828. It is the natural base, irrational.",cat:"Exponentials"},
-{front:"State the continuous compound interest formula.",back:"A = Pe^(rt). A = amount, P = principal, r = rate (decimal), t = time.",cat:"Exponentials"},
-{front:"What does log base b of x equal y mean?",back:"b^y = x. The log is the exponent you put on b to get x.",cat:"Logarithms"},
-{front:"What is log(1) for any base?",back:"0. Because b^0 = 1 for any valid base.",cat:"Logarithms"},
-{front:"State the log product rule.",back:"log_b(MN) = log_b(M) + log_b(N).",cat:"Logarithms"},
-{front:"State the log power rule.",back:"log_b(M^p) = p &middot; log_b(M). The exponent comes down as a multiplier.",cat:"Logarithms"},
-{front:"What is the change of base formula?",back:"log_b(x) = ln(x)/ln(b) = log(x)/log(b). Lets you evaluate any log on a calculator.",cat:"Logarithms"},
-{front:"How do you solve b^x = k?",back:"Take ln (or log) of both sides: x &middot; ln(b) = ln(k), so x = ln(k)/ln(b).",cat:"Logarithms"},
-{front:"What must be true about the argument of a logarithm?",back:"It must be positive. You cannot take the log of zero or a negative number.",cat:"Logarithms"},
-{front:"What is the half-life formula approach?",back:"Use A = A_0 e^(kt). Set A = A_0/2, solve for t. Or: first find k, then find the time.",cat:"Applications"},
-{front:"In A = P(1 + r/n)^(nt), what does n represent?",back:"The number of times interest is compounded per year (e.g., 12 for monthly, 4 for quarterly).",cat:"Applications"}
+function buildQuiz(){
+  const c=document.getElementById('quiz-box');c.innerHTML='';
+  Q.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='quiz-q';d.id='q'+i;
+    d.innerHTML='<div class="q-tag">Question '+(i+1)+' &middot; '+q.t+'</div><p class="q-text">'+q.q+'</p><ul class="quiz-opts">'+q.o.map((o,j)=>'<li><label id="l'+i+'-'+j+'"><input type="radio" name="q'+i+'" value="'+j+'"> '+o+'</label></li>').join('')+'</ul><div class="q-feedback" id="fb'+i+'"></div>';
+    c.appendChild(d);
+  });
+}
+
+function checkAll(){
+  let right=0;
+  Q.forEach((q,i)=>{
+    const sel=document.querySelector('input[name="q'+i+'"]:checked');
+    const fb=document.getElementById('fb'+i);
+    q.o.forEach((_,j)=>{document.getElementById('l'+i+'-'+j).className=''});
+    if(sel){
+      const v=+sel.value;
+      if(v===q.a){right++;document.getElementById('l'+i+'-'+v).className='correct';fb.className='q-feedback visible fb-right';fb.textContent='✓ '+q.e}
+      else{document.getElementById('l'+i+'-'+v).className='wrong';document.getElementById('l'+i+'-'+q.a).className='show-correct';fb.className='q-feedback visible fb-wrong';fb.textContent='✗ '+q.e}
+    }else{document.getElementById('l'+i+'-'+q.a).className='show-correct';fb.className='q-feedback visible fb-wrong';fb.textContent='No answer selected. '+q.e}
+  });
+  const sb=document.getElementById('score-box');const pct=Math.round(right/Q.length*100);
+  document.getElementById('score-num').textContent=right+' / '+Q.length;
+  document.getElementById('score-msg').textContent=pct+'% — '+(pct>=90?'Excellent!':pct>=70?'Nice work! Review what you missed.':'Keep going! Re-read the sections above and try again.');
+  sb.style.display='block';sb.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function resetAll(){
+  Q.forEach((q,i)=>{document.querySelectorAll('input[name="q'+i+'"]').forEach(r=>r.checked=false);q.o.forEach((_,j)=>{document.getElementById('l'+i+'-'+j).className=''});const fb=document.getElementById('fb'+i);fb.className='q-feedback';fb.textContent=''});
+  document.getElementById('score-box').style.display='none';document.getElementById('quiz-box').scrollIntoView({behavior:'smooth'});
+}
+
+// ===== FLASHCARDS =====
+const FC=[
+  {q:"Product rule for exponents?",a:"x^m · x^n = x^(m+n). Same base, add the exponents.",c:"Exponents"},
+  {q:"What is x^0?",a:"1 (for any x ≠ 0).",c:"Exponents"},
+  {q:"What does a negative exponent mean?",a:"Take the reciprocal: x^(-n) = 1/x^n.",c:"Exponents"},
+  {q:"Difference of squares pattern?",a:"a² − b² = (a + b)(a − b).",c:"Factoring"},
+  {q:"First step in any factoring problem?",a:"Factor out the GCF (greatest common factor).",c:"Factoring"},
+  {q:"The quadratic formula?",a:"x = [−b ± √(b² − 4ac)] / 2a",c:"Equations"},
+  {q:"What does the discriminant tell you?",a:"b² − 4ac: positive = 2 solutions, zero = 1 solution, negative = no real solutions.",c:"Equations"},
+  {q:"Solving |expression| = k?",a:"Write two equations: expression = k and expression = −k.",c:"Equations"},
+  {q:"When do you flip the inequality sign?",a:"When you multiply or divide both sides by a negative number.",c:"Inequalities"},
+  {q:"|x| < a means...?",a:"−a < x < a (between). Think: 'Less thAND.'",c:"Inequalities"},
+  {q:"|x| > a means...?",a:"x < −a OR x > a (outside). Think: 'GreatOR.'",c:"Inequalities"},
+  {q:"What makes something a function?",a:"Each input (x) gives exactly one output (y). Passes the Vertical Line Test.",c:"Functions"},
+  {q:"Three domain restrictions?",a:"1) Denominator ≠ 0. 2) Even root ≥ 0. 3) Log argument > 0.",c:"Functions"},
+  {q:"What does f(x − h) do to a graph?",a:"Shifts it RIGHT h units. (Opposite the sign inside.)",c:"Transformations"},
+  {q:"What does −f(x) do?",a:"Reflects the graph over the x-axis.",c:"Transformations"},
+  {q:"When does a function have an inverse?",a:"When it's one-to-one (passes the Horizontal Line Test).",c:"Inverse Functions"},
+  {q:"How to find an inverse?",a:"Replace f(x) with y, swap x and y, solve for y.",c:"Inverse Functions"},
+  {q:"How to find a vertex from ax² + bx + c?",a:"x = −b/(2a), then y = f(that x).",c:"Quadratics"},
+  {q:"Odd multiplicity at a zero?",a:"Graph CROSSES the x-axis.",c:"Polynomials"},
+  {q:"Even multiplicity at a zero?",a:"Graph TOUCHES and bounces off the x-axis.",c:"Polynomials"},
+  {q:"How to find a vertical asymptote?",a:"Set the denominator equal to zero (after canceling common factors).",c:"Rational Functions"},
+  {q:"HA when degrees are equal?",a:"y = leading coeff. of top / leading coeff. of bottom.",c:"Rational Functions"},
+  {q:"What is log_b(x) = y?",a:"It means b^y = x. 'What power of b gives x?'",c:"Logarithms"},
+  {q:"Log product rule?",a:"log(MN) = log(M) + log(N).",c:"Logarithms"},
+  {q:"Log power rule?",a:"log(M^p) = p · log(M). Exponent comes down.",c:"Logarithms"},
+  {q:"How to solve b^x = k?",a:"Take ln of both sides: x = ln(k)/ln(b).",c:"Exponentials"},
+  {q:"Continuous compound interest formula?",a:"A = Pe^(rt).",c:"Applications"},
 ];
 
-// ===== SHORT ANSWER DATA =====
-const shortAnswerData = [
-{q:"Explain how to find the domain of a function. Give the three most common restrictions.",concepts:[{terms:["input","x-value","possible"],label:"domain is the set of all possible input values",weight:2},{terms:["divide by zero","denominator","zero","cannot"],label:"cannot divide by zero (denominator &ne; 0)",weight:3},{terms:["even root","square root","negative","radical"],label:"cannot take the even root of a negative number",weight:3},{terms:["log","logarithm","positive","argument"],label:"argument of a logarithm must be positive",weight:3}],fullAnswer:"The domain of a function is the set of all possible input (x) values. The three most common restrictions are: you cannot divide by zero (set the denominator &ne; 0), you cannot take the even root of a negative number (set the radicand &ge; 0), and the argument of a logarithm must be positive (set the argument > 0). Solve each restriction to find which x-values are excluded or required.",cat:"Functions"},
-{q:"Describe the transformation rules for f(x + h), f(x) + k, -f(x), and f(-x). Explain why horizontal shifts seem counterintuitive.",concepts:[{terms:["f(x) + k","up","vertical shift"],label:"f(x) + k shifts the graph up k units",weight:2},{terms:["f(x + h)","left","horizontal"],label:"f(x + h) shifts the graph left h units",weight:2},{terms:["-f(x)","x-axis","reflect"],label:"-f(x) reflects over the x-axis",weight:2},{terms:["f(-x)","y-axis","reflect"],label:"f(-x) reflects over the y-axis",weight:2},{terms:["opposite","counterintuitive","inside"],label:"horizontal shifts go opposite the sign inside because you solve for x",weight:2}],fullAnswer:"f(x) + k shifts the graph up k units. f(x + h) shifts the graph left h units. -f(x) reflects the graph over the x-axis. f(-x) reflects the graph over the y-axis. Horizontal shifts are counterintuitive because the shift direction is opposite the sign inside the function: f(x - 3) shifts right 3, and f(x + 3) shifts left 3. This is because you are effectively solving for when the inner expression equals a particular value.",cat:"Transformations"},
-{q:"Explain what the discriminant is and how it determines the nature of solutions to a quadratic equation.",concepts:[{terms:["b squared","b&sup2;","4ac","discriminant"],label:"discriminant is b&sup2; - 4ac",weight:3},{terms:["positive","two","real"],label:"if positive: two distinct real solutions",weight:2},{terms:["zero","one","repeated","double"],label:"if zero: one repeated (double) real solution",weight:2},{terms:["negative","no real","complex"],label:"if negative: no real solutions (two complex conjugates)",weight:2},{terms:["under","radical","square root","quadratic formula"],label:"it is the expression under the square root in the quadratic formula",weight:1}],fullAnswer:"The discriminant is &Delta; = b&sup2; - 4ac, the expression under the square root in the quadratic formula. If &Delta; > 0, the equation has two distinct real solutions. If &Delta; = 0, there is exactly one repeated (double) real solution. If &Delta; < 0, there are no real solutions (the solutions are complex conjugates). The discriminant tells you the number and type of solutions without actually solving.",cat:"Quadratic Equations"},
-{q:"What is an inverse function? Explain how to find one and what conditions must be met.",concepts:[{terms:["undo","reverse","cancel"],label:"an inverse undoes/reverses the original function",weight:2},{terms:["one-to-one","horizontal line test","1-to-1"],label:"function must be one-to-one (pass the Horizontal Line Test)",weight:3},{terms:["swap","switch","x and y"],label:"to find: swap x and y, then solve for y",weight:2},{terms:["y = x","reflect","mirror"],label:"graphs are reflections across y = x",weight:2},{terms:["domain","range","switch"],label:"domain of f = range of f inverse, and vice versa",weight:1}],fullAnswer:"An inverse function f^(-1) undoes or reverses the action of f, so that f(f^(-1)(x)) = x. To have an inverse, a function must be one-to-one (pass the Horizontal Line Test). To find the inverse: replace f(x) with y, swap x and y, then solve for y. The graphs of f and f^(-1) are reflections across the line y = x. The domain of f becomes the range of f^(-1) and vice versa.",cat:"Inverse Functions"},
-{q:"Explain how to find the vertex of a parabola from standard form f(x) = ax&sup2; + bx + c. How does the sign of a affect the graph?",concepts:[{terms:["vertex","-b","2a","h = -b/(2a)"],label:"x-coordinate of vertex: h = -b/(2a)",weight:3},{terms:["f(h)","plug","substitute","k"],label:"y-coordinate: k = f(-b/(2a))",weight:2},{terms:["a > 0","positive","up","minimum"],label:"a > 0: opens up, vertex is a minimum",weight:2},{terms:["a < 0","negative","down","maximum"],label:"a < 0: opens down, vertex is a maximum",weight:2},{terms:["axis of symmetry","x = -b/(2a)"],label:"axis of symmetry is the vertical line x = -b/(2a)",weight:1}],fullAnswer:"From standard form f(x) = ax&sup2; + bx + c, the vertex has x-coordinate h = -b/(2a). Plug this value back into the function to get k = f(h). The vertex is (h, k). If a > 0, the parabola opens upward and the vertex is the minimum. If a < 0, it opens downward and the vertex is the maximum. The axis of symmetry is the vertical line x = -b/(2a).",cat:"Quadratics"},
-{q:"Explain how to determine the horizontal asymptote of a rational function by comparing degrees of the numerator and denominator.",concepts:[{terms:["degree","top","numerator","bottom","denominator","compare"],label:"compare the degree of numerator to degree of denominator",weight:2},{terms:["less than","y = 0","smaller"],label:"degree of top < bottom: HA is y = 0",weight:3},{terms:["equal","leading coefficient","ratio"],label:"degrees equal: HA is ratio of leading coefficients",weight:3},{terms:["greater","no horizontal","slant","oblique"],label:"degree of top > bottom: no horizontal asymptote",weight:2}],fullAnswer:"To find the horizontal asymptote of a rational function, compare the degrees of the numerator and denominator. If the degree of the numerator is less than the denominator, the HA is y = 0. If the degrees are equal, the HA is y = (leading coefficient of numerator) / (leading coefficient of denominator). If the degree of the numerator is greater than the denominator, there is no horizontal asymptote (there may be a slant/oblique asymptote instead).",cat:"Rational Functions"},
-{q:"What is a logarithm? Explain the relationship between logarithmic and exponential forms, and give two key properties.",concepts:[{terms:["inverse","exponential"],label:"a logarithm is the inverse of an exponential function",weight:3},{terms:["log_b(x) = y","b^y = x","exponent"],label:"log_b(x) = y means b^y = x (the log IS the exponent)",weight:3},{terms:["log(1) = 0","log_b(1)"],label:"log_b(1) = 0 because b^0 = 1",weight:2},{terms:["log_b(b) = 1","log of the base"],label:"log_b(b) = 1 because b^1 = b",weight:2}],fullAnswer:"A logarithm is the inverse of an exponential function. The expression log_b(x) = y means b^y = x. In other words, the logarithm is the exponent you put on the base b to get x. Two key properties: log_b(1) = 0 (because b^0 = 1) and log_b(b) = 1 (because b^1 = b). The domain of a log function is (0, infinity) and it has a vertical asymptote at x = 0.",cat:"Logarithms"},
-{q:"List the three main logarithm properties (product, quotient, power rules) and explain how they relate to exponent rules.",concepts:[{terms:["product","log(MN)","add","sum"],label:"product rule: log(MN) = log(M) + log(N)",weight:3},{terms:["quotient","log(M/N)","subtract","difference"],label:"quotient rule: log(M/N) = log(M) - log(N)",weight:3},{terms:["power","log(M^p)","p","bring down","multiply"],label:"power rule: log(M^p) = p &middot; log(M)",weight:3},{terms:["exponent","multiplication","addition","mirror","correspond"],label:"each log property mirrors an exponent rule",weight:1}],fullAnswer:"The three main log properties are: Product rule: log_b(MN) = log_b(M) + log_b(N) (multiplication becomes addition). Quotient rule: log_b(M/N) = log_b(M) - log_b(N) (division becomes subtraction). Power rule: log_b(M^p) = p &middot; log_b(M) (exponents become multipliers). Each mirrors an exponent rule because logarithms are exponents: the product rule for logs corresponds to the product rule for exponents (b^m &middot; b^n = b^(m+n)).",cat:"Logarithms"},
-{q:"Describe how to solve an exponential equation like 5^x = 200 step by step.",concepts:[{terms:["log","ln","both sides","take"],label:"take the log (or ln) of both sides",weight:3},{terms:["power rule","bring down","exponent"],label:"use the power rule to bring x down as a multiplier",weight:3},{terms:["divide","isolate","solve for x"],label:"divide to isolate x: x = ln(200)/ln(5) or log(200)/log(5)",weight:2},{terms:["calculator","approximate","decimal"],label:"use a calculator to get the decimal approximation",weight:1}],fullAnswer:"To solve 5^x = 200: Take the natural log (or common log) of both sides: ln(5^x) = ln(200). Use the power rule to bring x down: x &middot; ln(5) = ln(200). Divide both sides by ln(5) to isolate x: x = ln(200)/ln(5). Use a calculator to get the decimal approximation: x &approx; 3.292. This method works for any exponential equation where the bases cannot be easily matched.",cat:"Exponential Equations"},
-{q:"Explain the difference between exponential growth and exponential decay. Give the general model and describe what each part means.",concepts:[{terms:["A = A_0","e^(kt)","A(t)","model"],label:"general model: A(t) = A_0 &middot; e^(kt)",weight:2},{terms:["A_0","initial","starting"],label:"A_0 is the initial amount",weight:2},{terms:["k > 0","positive","growth"],label:"k > 0 means exponential growth (increasing)",weight:2},{terms:["k < 0","negative","decay"],label:"k < 0 means exponential decay (decreasing)",weight:2},{terms:["half-life","doubling","application"],label:"applications include half-life and doubling time",weight:1}],fullAnswer:"The general exponential model is A(t) = A_0 &middot; e^(kt), where A_0 is the initial amount, k is the rate constant, and t is time. If k > 0, it models exponential growth (the quantity increases over time). If k < 0, it models exponential decay (the quantity decreases over time). Common applications include population growth (k > 0), radioactive decay and half-life problems (k < 0), and doubling time calculations.",cat:"Applications"}
-];
+let activeCat='All';
+function getCats(){return['All',...new Set(FC.map(f=>f.c))]}
+function buildFilters(){document.getElementById('fc-filters').innerHTML=getCats().map(c=>'<button class="fc-tag'+(c==='All'?' on':'')+'" onclick="pickCat(\''+c+'\')">'+c+'</button>').join('')}
+function pickCat(c){activeCat=c;document.querySelectorAll('.fc-tag').forEach(b=>b.classList.toggle('on',b.textContent===c));buildCards()}
+function buildCards(){const box=document.getElementById('fc-box');const list=activeCat==='All'?FC:FC.filter(f=>f.c===activeCat);box.innerHTML=list.map(f=>'<div class="fc" onclick="this.classList.toggle(\'flipped\')"><div class="fc-inner"><div class="fc-front"><div class="fc-cat">'+f.c+'</div><div class="fc-q">'+f.q+'</div><div class="fc-tap">click to flip</div></div><div class="fc-back"><div class="fc-cat">Answer</div><div class="fc-a">'+f.a+'</div></div></div></div>').join('')}
 
-// ===== QUIZ ENGINE =====
-function buildQuiz(){const c=document.getElementById('quiz-container');c.innerHTML='';quizData.forEach((q,i)=>{const d=document.createElement('div');d.className='quiz-question';d.id='qq-'+i;let o=q.opts.map((opt,j)=>`<li><label id="ql-${i}-${j}"><input type="radio" name="q${i}" value="${j}"> ${opt}</label></li>`).join('');d.innerHTML=`<div class="q-number">Question ${i+1} &middot; ${q.cat}</div><p class="q-text">${q.q}</p><ul class="quiz-options">${o}</ul><div class="quiz-feedback" id="qf-${i}"></div>`;c.appendChild(d)})}
-function checkQuiz(){let correct=0;quizData.forEach((q,i)=>{const s=document.querySelector(`input[name="q${i}"]:checked`);const fb=document.getElementById('qf-'+i);q.opts.forEach((_,j)=>{document.getElementById(`ql-${i}-${j}`).className=''});if(s){const v=parseInt(s.value);if(v===q.ans){correct++;document.getElementById(`ql-${i}-${v}`).className='correct';fb.className='quiz-feedback show correct-fb';fb.textContent='\u2713 Correct! '+q.explain}else{document.getElementById(`ql-${i}-${v}`).className='incorrect';document.getElementById(`ql-${i}-${q.ans}`).className='reveal-correct';fb.className='quiz-feedback show incorrect-fb';fb.textContent='\u2717 '+q.explain}}else{document.getElementById(`ql-${i}-${q.ans}`).className='reveal-correct';fb.className='quiz-feedback show incorrect-fb';fb.textContent='No answer selected. '+q.explain}});const sc=document.getElementById('quiz-score');const pct=Math.round((correct/quizData.length)*100);document.getElementById('score-number').textContent=correct+' / '+quizData.length;document.getElementById('score-label').textContent=pct+'% \u2014 '+(pct>=90?'Outstanding!':pct>=75?'Great job!':pct>=60?'Good effort. Review the sections you missed.':'Keep studying! Review the reference above and try again.');sc.style.display='block';sc.scrollIntoView({behavior:'smooth',block:'center'})}
-function resetQuiz(){quizData.forEach((q,i)=>{document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>r.checked=false);q.opts.forEach((_,j)=>{document.getElementById(`ql-${i}-${j}`).className=''});const fb=document.getElementById('qf-'+i);fb.className='quiz-feedback';fb.textContent=''});document.getElementById('quiz-score').style.display='none';document.getElementById('quiz-container').scrollIntoView({behavior:'smooth'})}
-
-// ===== FLASHCARD ENGINE =====
-let activeCategory='All';
-function getCategories(){return['All',...new Set(flashcardData.map(f=>f.cat))]}
-function buildFilters(){const c=document.getElementById('fc-filters');c.innerHTML=getCategories().map(cat=>`<button class="fc-filter-btn ${cat==='All'?'active':''}" onclick="filterCards('${cat}')">${cat}</button>`).join('')}
-function filterCards(cat){activeCategory=cat;document.querySelectorAll('.fc-filter-btn').forEach(b=>{b.classList.toggle('active',b.textContent===cat)});buildFlashcards()}
-function buildFlashcards(){const c=document.getElementById('flashcard-container');const f=activeCategory==='All'?flashcardData:flashcardData.filter(f=>f.cat===activeCategory);c.innerHTML=f.map(fc=>`<div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="flashcard-inner"><div class="flashcard-front"><div class="fc-label">${fc.cat}</div><div class="fc-question">${fc.front}</div><div class="fc-hint">click to flip</div></div><div class="flashcard-back"><div class="fc-label">Answer</div><div class="fc-answer">${fc.back}</div></div></div></div>`).join('')}
-
-// ===== SHORT ANSWER ENGINE =====
-function buildShortAnswer(){const c=document.getElementById('sa-container');c.innerHTML='';shortAnswerData.forEach((q,i)=>{const d=document.createElement('div');d.className='sa-question';d.id='sa-'+i;d.innerHTML='<div class="q-number">Short Answer '+(i+1)+' &middot; '+q.cat+'</div><p class="q-text">'+q.q+'</p><textarea class="sa-textarea" id="sa-input-'+i+'" placeholder="Type your answer here..."></textarea><div><button class="sa-submit-btn" id="sa-btn-'+i+'" onclick="gradeAnswer('+i+')">Grade My Answer</button></div><div class="sa-loading" id="sa-loading-'+i+'" style="display:none"><div class="spinner"></div><span>Evaluating your answer...</span></div><div class="sa-feedback" id="sa-fb-'+i+'"></div>';c.appendChild(d)})}
-function gradeAnswer(index){const input=document.getElementById('sa-input-'+index).value.trim();if(!input){alert('Please type an answer before submitting.');return;}const btn=document.getElementById('sa-btn-'+index);const fb=document.getElementById('sa-fb-'+index);const loading=document.getElementById('sa-loading-'+index);btn.disabled=true;loading.style.display='inline-flex';fb.className='sa-feedback';fb.removeAttribute('style');setTimeout(()=>{const q=shortAnswerData[index];const inputLower=input.toLowerCase();let totalWeight=0,earnedWeight=0;const matched=[],missed=[];q.concepts.forEach(c=>{totalWeight+=c.weight;if(c.terms.some(t=>inputLower.includes(t.toLowerCase()))){earnedWeight+=c.weight;matched.push(c.label)}else{missed.push({label:c.label,weight:c.weight})}});missed.sort((a,b)=>b.weight-a.weight);const pct=totalWeight>0?earnedWeight/totalWeight:0;let grade,icon,cls;if(pct>=0.65){grade='good';icon='\u2713 Nice work!';cls='grade-good'}else if(pct>=0.35){grade='partial';icon='\u25cb Getting there!';cls='grade-partial'}else{grade='needs_work';icon='\u2717 Keep working on this one.';cls='grade-needs-work'}let feedback='';if(matched.length>0)feedback+='You correctly addressed: '+matched.join('; ')+'. ';if(grade==='good'&&missed.length>0){feedback+='To strengthen your answer, also mention: '+missed.slice(0,2).map(m=>m.label).join('; ')+'.'}else if(grade==='partial'){feedback+='Key concepts you missed: '+missed.slice(0,3).map(m=>m.label).join('; ')+'.'}else{feedback+='Your answer needs more detail. Key concepts to include: '+missed.slice(0,3).map(m=>m.label).join('; ')+'.'}feedback+='<br><br><strong>Model answer:</strong> '+q.fullAnswer;loading.style.display='none';btn.disabled=false;fb.className='sa-feedback show '+cls;fb.innerHTML='<strong>'+icon+'</strong> '+feedback},600)}
-
-document.addEventListener('DOMContentLoaded',()=>{buildQuiz();buildFilters();buildFlashcards();buildShortAnswer()});
+document.addEventListener('DOMContentLoaded',()=>{buildQuiz();buildFilters();buildCards()});
 </script>
 </body>
 </html>
