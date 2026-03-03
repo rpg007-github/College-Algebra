@@ -433,9 +433,40 @@
       .fc-grid { grid-template-columns: 1fr; }
       .header { padding: 2.5rem 1.25rem 2rem; }
     }
-  </style>
+  
+/* ─── WCAG 2.1 AA: Visible focus indicators ─── */
+:focus-visible {
+  outline: 3px solid #005fcc !important;
+  outline-offset: 2px !important;
+}
+.tab-btn:focus-visible, .nav-btn:focus-visible {
+  outline: 3px solid #005fcc !important;
+  outline-offset: 2px !important;
+}
+/* ─── Skip link ─── */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: #005fcc;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0 0 6px 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+</style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
 
 <div class="header">
   <h1>College Algebra Basics</h1>
@@ -544,7 +575,7 @@
         <p>Solve: <span class="f">3x + 7 = 22</span></p>
         <div class="step"><span class="step-num">1.</span><span>Subtract 7 from both sides: 3x = 15</span></div>
         <div class="step"><span class="step-num">2.</span><span>Divide both sides by 3: x = 5</span></div>
-        <div class="step"><span class="step-num">3.</span><span>Check: 3(5) + 7 = 15 + 7 = 22 ✓</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Check: 3(5) + 7 = 15 + 7 = 22 <span aria-hidden="true">✓</span></span></div>
       </div>
     </div>
 
@@ -596,7 +627,7 @@
         <p>Solve: <span class="f">|x - 3| = 7</span></p>
         <div class="step"><span class="step-num">1.</span><span>Write two equations: x - 3 = 7 and x - 3 = -7</span></div>
         <div class="step"><span class="step-num">2.</span><span>Solve: x = 10 and x = -4</span></div>
-        <div class="step"><span class="step-num">3.</span><span>Check: |10 - 3| = |7| = 7 ✓ and |-4 - 3| = |-7| = 7 ✓</span></div>
+        <div class="step"><span class="step-num">3.</span><span>Check: |10 - 3| = |7| = 7 <span aria-hidden="true">✓</span> and |-4 - 3| = |-7| = 7 <span aria-hidden="true">✓</span></span></div>
       </div>
     </div>
   </div>
@@ -790,10 +821,10 @@
       <p class="explain">The <strong>end behavior</strong> of a polynomial is what happens to the graph as x goes very far left or very far right. It depends on two things: the <strong>degree</strong> (highest exponent) and the <strong>leading coefficient</strong> (the number in front of the highest power).</p>
       <table class="tbl">
         <tr><th>Degree</th><th>Leading Coeff.</th><th>Left End</th><th>Right End</th></tr>
-        <tr><td>Even</td><td>Positive</td><td>↑ up</td><td>↑ up</td></tr>
-        <tr><td>Even</td><td>Negative</td><td>↓ down</td><td>↓ down</td></tr>
-        <tr><td>Odd</td><td>Positive</td><td>↓ down</td><td>↑ up</td></tr>
-        <tr><td>Odd</td><td>Negative</td><td>↑ up</td><td>↓ down</td></tr>
+        <tr><td>Even</td><td>Positive</td><td><span aria-hidden="true">↑</span> up</td><td><span aria-hidden="true">↑</span> up</td></tr>
+        <tr><td>Even</td><td>Negative</td><td><span aria-hidden="true">↓</span> down</td><td><span aria-hidden="true">↓</span> down</td></tr>
+        <tr><td>Odd</td><td>Positive</td><td><span aria-hidden="true">↓</span> down</td><td><span aria-hidden="true">↑</span> up</td></tr>
+        <tr><td>Odd</td><td>Negative</td><td><span aria-hidden="true">↑</span> up</td><td><span aria-hidden="true">↓</span> down</td></tr>
       </table>
       <div class="tip">Even degree = both ends go the same way. Odd degree = ends go opposite ways.</div>
     </div>
@@ -981,8 +1012,8 @@ function checkAll(){
     q.o.forEach((_,j)=>{document.getElementById('l'+i+'-'+j).className=''});
     if(sel){
       const v=+sel.value;
-      if(v===q.a){right++;document.getElementById('l'+i+'-'+v).className='correct';fb.className='q-feedback visible fb-right';fb.textContent='✓ '+q.e}
-      else{document.getElementById('l'+i+'-'+v).className='wrong';document.getElementById('l'+i+'-'+q.a).className='show-correct';fb.className='q-feedback visible fb-wrong';fb.textContent='✗ '+q.e}
+      if(v===q.a){right++;document.getElementById('l'+i+'-'+v).className='correct';fb.className='q-feedback visible fb-right';fb.textContent='<span aria-hidden="true">✓</span> '+q.e}
+      else{document.getElementById('l'+i+'-'+v).className='wrong';document.getElementById('l'+i+'-'+q.a).className='show-correct';fb.className='q-feedback visible fb-wrong';fb.textContent='<span aria-hidden="true">✗</span> '+q.e}
     }else{document.getElementById('l'+i+'-'+q.a).className='show-correct';fb.className='q-feedback visible fb-wrong';fb.textContent='No answer selected. '+q.e}
   });
   const sb=document.getElementById('score-box');const pct=Math.round(right/Q.length*100);
